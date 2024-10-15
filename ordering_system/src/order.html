@@ -66,57 +66,55 @@
         font-size: 20px;
       }
       .main-content {
-  display: flex;
-  margin-top: 50px;
-}
+        display: flex;
+        margin-top: 50px;
+      }
 
-.cat {
-  margin: 0 40px;
-  background-color: #ffffff;
-  width: 159px; /* Fixed width */
-  height: 541px; /* Allow height to adjust */
-  border-radius: 30px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
-    0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
+      .cat {
+        margin: 0 40px;
+        background-color: #ffffff;
+        width: 159px; /* Fixed width */
+        height: 541px; /* Allow height to adjust */
+        border-radius: 30px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+          0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      }
 
-.menu {
-  display: flex;
-  flex-wrap: wrap; 
-  justify-content: flex-start; 
-  margin-left: 20px;
-}
-.order_product{
-    
-}
-.product {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  margin: 30px; /* Adjust margin for spacing */
-  background-color: #ffffff;
-  height: 515px;
-  width: 350px; /* Adjust width for three products */
-  border-radius: 30px;
-  border: 2px solid transparent; /* Initial border style */
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
-              0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  transition: border-color 0.3s; /* Smooth transition for border color */
-}
+      .menu {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        margin-left: 20px;
+      }
+      .order_product {
+      }
+      .product {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        margin: 30px; /* Adjust margin for spacing */
+        background-color: #ffffff;
+        height: 515px;
+        width: 350px; /* Adjust width for three products */
+        border-radius: 30px;
+        border: 2px solid transparent; /* Initial border style */
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+          0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        transition: border-color 0.3s; /* Smooth transition for border color */
+      }
 
-.product:hover {
-  border-color: #ac8f64; /* Change this to your desired hover border color */
-}
-
+      .product:hover {
+        border-color: #ac8f64; /* Change this to your desired hover border color */
+      }
 
       .cat img {
         margin: 20px 0;
       }
-      
+
       h2 {
         font-size: 30px;
         font-family: "Rosarivo";
@@ -139,30 +137,43 @@
         margin-right: 20px;
       }
       .overlay {
-  position: fixed; /* Fixed position to cover the viewport */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent black */
-  z-index: 1; /* Ensure it's above other content */
-}
-.order_container{
-  position: fixed; /* Fixed position to cover the viewport */
-  top: 0;
-  right: 0;
-  width: 479px;
-  height: 100%;
-  background-color: white; /* Semi-transparent black */
-   /* Initially hidden */
-  z-index: 1;
-}
+        display: none;
+        position: fixed; /* Fixed position to cover the viewport */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent black */
+        z-index: 1; /* Ensure it's above other content */
+      }
+      .order_container {
+        position: fixed; /* Fixed position to cover the viewport */
+        top: 0;
+        right: -500px; /* Hide it off-screen to the right */
+        width: 479px;
+        height: 100%;
+        background-color: white; /* Semi-transparent black */
+        z-index: 1;
+        transition: right 0.5s ease; /* Smooth sliding transition */
+      }
+
+      .order_container.active {
+        right: 0; /* Slide it in from the right */
+      }
+      .overlay.active {
+        display: block; /* Make overlay visible */
+      }
     </style>
   </head>
 
   <body>
     <div class="top">
-      <object data="img/logo.svg" width="159px" height="83px" margin="0 50px"></object>
+      <object
+        data="img/logo.svg"
+        width="159px"
+        height="83px"
+        margin="0 50px"
+      ></object>
       <div class="container">
         <input
           type="text"
@@ -170,101 +181,233 @@
           name="search"
           placeholder="Browse your favorite here..."
         />
-        <img src="img/search.png" id="icon" alt="search" width="32px" height="35.2px" />
+        <img
+          src="img/search.png"
+          id="icon"
+          alt="search"
+          width="32px"
+          height="35.2px"
+        />
       </div>
       <button class="order">
         <img src="img/bell.png" alt="order" width="48px" height="38px" />
         <h2 class="text1">MY ORDER</h2>
       </button>
     </div>
-  
+
     <div class="main-content">
       <div class="cat">
-        <img src="img/bread.png" id="icon" alt="search" width="159px" height="140px" />
-        <img src="img/coffee2.png" id="icon" alt="search" width="159px" height="140px" />
-        <img src="img/pizza1.png" id="icon" alt="search" width="159px" height="140px" />
+        <img
+          src="img/bread.png"
+          id="icon"
+          alt="search"
+          width="159px"
+          height="140px"
+        />
+        <img
+          src="img/coffee2.png"
+          id="icon"
+          alt="search"
+          width="159px"
+          height="140px"
+        />
+        <img
+          src="img/pizza1.png"
+          id="icon"
+          alt="search"
+          width="159px"
+          height="140px"
+        />
       </div>
-    
+
       <div class="menu">
         <div class="product">
-          <img src="img/coffee_bun.png" id="icon" alt="search" width="309px" height="309px" />
+          <img
+            src="img/coffee_bun.png"
+            id="icon"
+            alt="search"
+            width="309px"
+            height="309px"
+          />
           <h2>Coffee Bun</h2>
           <div class="price">
             <h3>₱35</h3>
-            <img src="img/plus.png" id="icon" alt="plus" width="47px" height="47px" />
+            <img
+              src="img/plus.png"
+              id="icon"
+              alt="plus"
+              width="47px"
+              height="47px"
+            />
           </div>
         </div>
         <div class="product">
-          <img src="img/2.png" id="icon" alt="search" width="309px" height="309px" />
+          <img
+            src="img/2.png"
+            id="icon"
+            alt="search"
+            width="309px"
+            height="309px"
+          />
           <h2>Classic Ensaymada</h2>
           <div class="price">
             <h3>₱35</h3>
-            <img src="img/plus.png" id="icon" alt="plus" width="47px" height="47px" />
+            <img
+              src="img/plus.png"
+              id="icon"
+              alt="plus"
+              width="47px"
+              height="47px"
+            />
           </div>
         </div>
         <div class="product">
-          <img src="img/3.png" id="icon" alt="search" width="309px" height="309px" />
+          <img
+            src="img/3.png"
+            id="icon"
+            alt="search"
+            width="309px"
+            height="309px"
+          />
           <h2>Strawberry Muffin</h2>
           <div class="price">
             <h3>₱35</h3>
-            <img src="img/plus.png" id="icon" alt="plus" width="47px" height="47px" />
+            <img
+              src="img/plus.png"
+              id="icon"
+              alt="plus"
+              width="47px"
+              height="47px"
+            />
           </div>
         </div>
         <div class="product">
-          <img src="img/coffee_bun.png" id="icon" alt="search" width="309px" height="309px" />
+          <img
+            src="img/coffee_bun.png"
+            id="icon"
+            alt="search"
+            width="309px"
+            height="309px"
+          />
           <h2>Coffee Bun</h2>
           <div class="price">
             <h3>₱35</h3>
-            <img src="img/plus.png" id="icon" alt="plus" width="47px" height="47px" />
+            <img
+              src="img/plus.png"
+              id="icon"
+              alt="plus"
+              width="47px"
+              height="47px"
+            />
           </div>
         </div>
         <div class="product">
-          <img src="img/2.png" id="icon" alt="search" width="309px" height="309px" />
+          <img
+            src="img/2.png"
+            id="icon"
+            alt="search"
+            width="309px"
+            height="309px"
+          />
           <h2>Classic Ensaymada</h2>
           <div class="price">
             <h3>₱35</h3>
-            <img src="img/plus.png" id="icon" alt="plus" width="47px" height="47px" />
+            <img
+              src="img/plus.png"
+              id="icon"
+              alt="plus"
+              width="47px"
+              height="47px"
+            />
           </div>
         </div>
         <div class="product">
-          <img src="img/3.png" id="icon" alt="search" width="309px" height="309px" />
+          <img
+            src="img/3.png"
+            id="icon"
+            alt="search"
+            width="309px"
+            height="309px"
+          />
           <h2>Strawberry Muffin</h2>
           <div class="price">
             <h3>₱35</h3>
-            <img src="img/plus.png" id="icon" alt="plus" width="47px" height="47px" />
+            <img
+              src="img/plus.png"
+              id="icon"
+              alt="plus"
+              width="47px"
+              height="47px"
+            />
           </div>
         </div>
         <div class="product">
-          <img src="img/coffee_bun.png" id="icon" alt="search" width="309px" height="309px" />
+          <img
+            src="img/coffee_bun.png"
+            id="icon"
+            alt="search"
+            width="309px"
+            height="309px"
+          />
           <h2>Coffee Bun</h2>
           <div class="price">
             <h3>₱35</h3>
-            <img src="img/plus.png" id="icon" alt="plus" width="47px" height="47px" />
+            <img
+              src="img/plus.png"
+              id="icon"
+              alt="plus"
+              width="47px"
+              height="47px"
+            />
           </div>
         </div>
         <div class="product">
-          <img src="img/2.png" id="icon" alt="search" width="309px" height="309px" />
+          <img
+            src="img/2.png"
+            id="icon"
+            alt="search"
+            width="309px"
+            height="309px"
+          />
           <h2>Classic Ensaymada</h2>
           <div class="price">
             <h3>₱35</h3>
-            <img src="img/plus.png" id="icon" alt="plus" width="47px" height="47px" />
+            <img
+              src="img/plus.png"
+              id="icon"
+              alt="plus"
+              width="47px"
+              height="47px"
+            />
           </div>
         </div>
         <div class="product">
-          <img src="img/3.png" id="icon" alt="search" width="309px" height="309px" />
+          <img
+            src="img/3.png"
+            id="icon"
+            alt="search"
+            width="309px"
+            height="309px"
+          />
           <h2>Strawberry Muffin</h2>
           <div class="price">
             <h3>₱35</h3>
-            <img src="img/plus.png" id="icon" alt="plus" width="47px" height="47px" />
+            <img
+              src="img/plus.png"
+              id="icon"
+              alt="plus"
+              width="47px"
+              height="47px"
+            />
           </div>
         </div>
       </div>
     </div>
     <div class="overlay"></div>
     <div class="order_container">
-        <h2 class="text1">My Order</h2>
-        <h2 class="text1">My Order</h2>
-        <div class="order_product"></div>
+      <h2 class="text1">My Order</h2>
+      <h2 class="text1">My Order</h2>
+      <div class="order_product"></div>
     </div>
     <script src="script.js"></script>
   </body>
