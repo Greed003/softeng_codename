@@ -1,6 +1,3 @@
-CREATE DATABASE if NOT EXISTS kaskada_db;
-USE kaskada_db;
-
 -- Table for Coffee Menu
 CREATE TABLE coffee_menu (
     id SERIAL PRIMARY KEY,
@@ -152,11 +149,15 @@ INSERT INTO drink_add_ons (item_name, type, price) VALUES
 
 -- Insert Data for Bread Menu
 INSERT INTO bread_menu (item_name, type, price, image_url) VALUES
-('Korean Garlic Bread', 'Bread', 95, 'path/to/korean_garlic_bread.jpg'),
-('Ham and Cheese', 'Bread', 35, 'path/to/ham_and_cheese.jpg'),
-('Floss Roll (Chicken)', 'Bread', 45, 'path/to/floss_roll_chicken.jpg'),
-('Floss Bun (Pork)', 'Bread', 35, 'path/to/floss_bun_pork.jpg'),
-('Coffee Bun', 'Bread', 35, 'path/to/coffee_bun.jpg'),
-('Cinnamon', 'Bread', 50, 'path/to/cinnamon.jpg'),
-('Classic Ensaymada', 'Bread', 35, 'path/to/classic_ensaymada.jpg'),
-('Ube Cheese Ensaymada', 'Bread', 45, 'path/to/ube_cheese_ensaymada.jpg');
+('Korean Garlic Bread', 'Bread', 95, 'img/korean_garlic_bread.png'),
+('Strawberry Muffin', 'Bread', 95, 'img/strawberry_muffin.png'),
+('Ham and Cheese', 'Bread', 35, 'img/ham_and_cheese.png'),
+('Floss Roll (Chicken)', 'Bread', 45, 'img/floss_roll_chicken.png'),
+('Pork Floss Bun (Seaweeds)', 'Bread', 35, 'img/pork_floss_bun.png'),
+('Coffee Bun', 'Bread', 35, 'img/coffee_bun.png'),
+('Cinnamon', 'Bread', 50, 'img/cinnamon.png'),
+('Classic Ensaymada', 'Bread', 35, 'img/classic_ensaymada.png'),
+('Ube Cheese Ensaymada', 'Bread', 45, 'img/ube_cheese_ensaymada.png');
+
+
+
