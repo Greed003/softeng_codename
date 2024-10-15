@@ -1,1 +1,1 @@
-{"version":1,"defects":{"ConnectionTest::testDatabaseConnection":7,"MenuTest::testFetchBreadMenu":8},"times":{"ConnectionTest::testDatabaseConnection":0.055,"ConnectionTest::testConnection":0.004,"MenuTest::testFetchBreadMenu":0.002}}
+{"version":1,"defects":{"ConnectionTest::testDatabaseConnection":7,"MenuTest::testFetchBreadMenu":8},"times":{"ConnectionTest::testDatabaseConnection":0.055,"ConnectionTest::testConnection":0.006,"MenuTest::testFetchBreadMenu":0.002}}
