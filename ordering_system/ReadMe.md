@@ -1,7 +1,7 @@
 ## For Software Testing Use this Command
-# composer test
+ composer test
 
 ## For Pull Request
-# bgit branch -M system
-# git remote add origin https://github.com/Greed003/softeng_codename.git
-# git pull origin system
+git branch -M system
+git remote add origin https://github.com/Greed003/softeng_codename.git
+git pull origin system
