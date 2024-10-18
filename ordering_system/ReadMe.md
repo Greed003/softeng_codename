@@ -1,9 +1,7 @@
 ## For Software Testing Use this Command
-
-./vendor/bin/phpunit --bootstrap vendor/autoload.php tests
+# composer test
 
 ## For Pull Request
-
-git branch -M system
-git remote add origin https://github.com/Greed003/softeng_codename.git
-git pull origin system
+# bgit branch -M system
+# git remote add origin https://github.com/Greed003/softeng_codename.git
+# git pull origin system
