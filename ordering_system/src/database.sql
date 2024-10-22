@@ -1,163 +1,158 @@
--- Table for Coffee Menu
-CREATE TABLE coffee_menu (
-    id SERIAL PRIMARY KEY,
-    item_name VARCHAR(100),
-    type VARCHAR(20),
-    size VARCHAR(10),
-    price DECIMAL(10, 2),
-    image_url TEXT
+-- Create Admin Table
+CREATE TABLE admin (
+    admin_id SERIAL PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL
 );
 
--- Table for Non-Coffee Menu
-CREATE TABLE non_coffee_menu (
-    id SERIAL PRIMARY KEY,
-    item_name VARCHAR(100),
-    type VARCHAR(20),
-    size VARCHAR(10),
-    price DECIMAL(10, 2),
-    image_url TEXT
+-- Create Staff Table
+CREATE TABLE staff (
+    staff_id SERIAL PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL
 );
 
--- Table for Soda Drinks
-CREATE TABLE soda_menu (
-    id SERIAL PRIMARY KEY,
-    item_name VARCHAR(100),
-    type VARCHAR(20),
-    size VARCHAR(10),
-    price DECIMAL(10, 2),
-    image_url TEXT
+-- Create Product Type Table
+CREATE TABLE product_type (
+    type_id SERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL
 );
 
--- Table for Pizza Menu
-CREATE TABLE pizza_menu (
-    id SERIAL PRIMARY KEY,
-    item_name VARCHAR(100),
-    type VARCHAR(20),
-    size VARCHAR(10),
-    price DECIMAL(10, 2),
-    image_url TEXT
+-- Create Products Table
+CREATE TABLE products (
+    product_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    type_id INT REFERENCES product_type(type_id),
+    price DECIMAL(10, 2) NOT NULL,
+    size VARCHAR(50),
+    img VARCHAR(255)
 );
 
--- Table for Add-On Toppings
-CREATE TABLE pizza_toppings (
-    id SERIAL PRIMARY KEY,
-    item_name VARCHAR(100),
-    type VARCHAR(20),
-    price DECIMAL(10, 2)
+-- Create Extras Table
+CREATE TABLE extras (
+    extras_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL
 );
 
--- Table for Add-Ons for Drinks
-CREATE TABLE drink_add_ons (
-    id SERIAL PRIMARY KEY,
-    item_name VARCHAR(100),
-    type VARCHAR(20),
-    price DECIMAL(10, 2)
+-- Create Order Items Table
+CREATE TABLE order_items (
+    order_item_id SERIAL PRIMARY KEY,
+    product_id INT NOT NULL REFERENCES products(product_id),
+    quantity INT NOT NULL,
+    extras_id INT REFERENCES extras(extras_id),
+    price DECIMAL(10, 2) NOT NULL
 );
 
--- Table for Bread Menu
-CREATE TABLE bread_menu (
-    id SERIAL PRIMARY KEY,
-    item_name VARCHAR(100),
-    type VARCHAR(20),
-    price DECIMAL(10, 2),
-    image_url TEXT
+-- Create Order Total Table
+CREATE TABLE order_total (
+    order_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    order_item_id INT REFERENCES order_items(order_item_id),
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    total DECIMAL(10, 2) NOT NULL
 );
 
--- Insert Data for Coffee Menu
-INSERT INTO coffee_menu (item_name, type, size, price, image_url) VALUES
-('Americano', 'Coffee', 'Hot 12oz', 65, 'path/to/americano_hot.jpg'),
-('Americano', 'Coffee', 'Cold 16oz', 85, 'path/to/americano_cold.jpg'),
-('Cafe Latte', 'Coffee', 'Hot 12oz', 75, 'path/to/cafe_latte_hot.jpg'),
-('Cafe Latte', 'Coffee', 'Cold 16oz', 95, 'path/to/cafe_latte_cold.jpg'),
-('Salted Caramel', 'Coffee', 'Hot 12oz', 95, 'path/to/salted_caramel_hot.jpg'),
-('Salted Caramel', 'Coffee', 'Cold 16oz', 120, 'path/to/salted_caramel_cold.jpg'),
-('Hazelnut Latte', 'Coffee', 'Hot 12oz', 95, 'path/to/hazelnut_latte_hot.jpg'),
-('Hazelnut Latte', 'Coffee', 'Cold 16oz', 120, 'path/to/hazelnut_latte_cold.jpg'),
-('Spanish Latte', 'Coffee', 'Hot 12oz', 85, 'path/to/spanish_latte_hot.jpg'),
-('Spanish Latte', 'Coffee', 'Cold 16oz', 110, 'path/to/spanish_latte_cold.jpg'),
-('White Mocha Latte', 'Coffee', 'Hot 12oz', 115, 'path/to/white_mocha_hot.jpg'),
-('White Mocha Latte', 'Coffee', 'Cold 16oz', 125, 'path/to/white_mocha_cold.jpg'),
-('Caramel Macchiato', 'Coffee', 'Hot 12oz', 115, 'path/to/caramel_macchiato_hot.jpg'),
-('Caramel Macchiato', 'Coffee', 'Cold 16oz', 125, 'path/to/caramel_macchiato_cold.jpg'),
-('Biscoffee', 'Coffee', 'Cold 16oz', 165, 'path/to/biscoffee.jpg'),
-('Brown Sugar Cinnamon', 'Coffee', 'Hot 12oz', 95, 'path/to/brown_sugar_cinnamon_hot.jpg'),
-('Brown Sugar Cinnamon', 'Coffee', 'Cold 16oz', 115, 'path/to/brown_sugar_cinnamon_cold.jpg'),
-('Caramel Brulee', 'Coffee', 'Hot 12oz', 95, 'path/to/caramel_brulee_hot.jpg'),
-('Caramel Brulee', 'Coffee', 'Cold 16oz', 120, 'path/to/caramel_brulee_cold.jpg'),
-('Double Choco Chip Latte', 'Coffee', 'Hot 12oz', 100, 'path/to/double_choco_chip_hot.jpg'),
-('Double Choco Chip Latte', 'Coffee', 'Cold 16oz', 125, 'path/to/double_choco_chip_cold.jpg');
+-- Insert Initial Admin and Staff
+INSERT INTO admin (username, password_hash) VALUES ('admin', 'admin');
+INSERT INTO staff (username, password_hash) VALUES ('staff', 'staff');
 
--- Insert Data for Non-Coffee Menu
-INSERT INTO non_coffee_menu (item_name, type, size, price, image_url) VALUES
-('Matcha Green Tea Latte', 'Non-Coffee', 'Hot 12oz', 95, 'path/to/matcha_hot.jpg'),
-('Matcha Green Tea Latte', 'Non-Coffee', 'Cold 16oz', 125, 'path/to/matcha_cold.jpg'),
-('Strawberry Latte', 'Non-Coffee', 'Cold 16oz', 125, 'path/to/strawberry_latte.jpg'),
-('Dark Choco Latte', 'Non-Coffee', 'Hot 12oz', 95, 'path/to/dark_choco_hot.jpg'),
-('Dark Choco Latte', 'Non-Coffee', 'Cold 16oz', 125, 'path/to/dark_choco_cold.jpg'),
-('Berry Matcha', 'Non-Coffee', 'Cold 16oz', 135, 'path/to/berry_matcha.jpg'),
-('Choco Berry', 'Non-Coffee', 'Cold 16oz', 135, 'path/to/choco_berry.jpg');
+-- Insert Product Types
+INSERT INTO product_type (name) VALUES 
+('Coffee'), 
+('Non-Coffee'), 
+('Soda Drinks'), 
+('Pizza'), 
+('Bread');
 
--- Insert Data for Soda Menu
-INSERT INTO soda_menu (item_name, type, size, price, image_url) VALUES
-('Rose Berry', 'Soda', 'Cold 16oz', 85, 'path/to/rose_berry.jpg'),
-('Peach Citrus', 'Soda', 'Cold 16oz', 85, 'path/to/peach_citrus.jpg'),
-('Passion Bloom', 'Soda', 'Cold 16oz', 85, 'path/to/passion_bloom.jpg'),
-('Hibiscus Lemon', 'Soda', 'Cold 16oz', 85, 'path/to/hibiscus_lemon.jpg'),
-('Lemon Ginger Tea Soda', 'Soda', 'Cold 16oz', 95, 'path/to/lemon_ginger_tea.jpg');
+-- Coffee Menu
+INSERT INTO products (name, type_id, price, size, img) VALUES
+('Americano', 1, 65, 'Hot 12oz', 'img/americano_hot.png'),
+('Americano', 1, 85, 'Cold 16oz', 'img/americano_cold.png'),
+('Cafe Latte', 1, 75, 'Hot 12oz', 'img/cafe_latte_hot.png'),
+('Cafe Latte', 1, 95, 'Cold 16oz', 'img/cafe_latte_cold.png'),
+('Salted Caramel', 1, 95, 'Hot 12oz', 'img/salted_caramel_hot.png'),
+('Salted Caramel', 1, 120, 'Cold 16oz', 'img/salted_caramel_cold.png'),
+('Hazelnut Latte', 1, 95, 'Hot 12oz', 'img/hazelnut_latte_hot.png'),
+('Hazelnut Latte', 1, 120, 'Cold 16oz', 'img/hazelnut_latte_cold.png'),
+('Spanish Latte', 1, 85, 'Hot 12oz', 'img/spanish_latte_hot.png'),
+('Spanish Latte', 1, 110, 'Cold 16oz', 'img/spanish_latte_cold.png'),
+('White Mocha Latte', 1, 115, 'Hot 12oz', 'img/white_mocha_hot.png'),
+('White Mocha Latte', 1, 125, 'Cold 16oz', 'img/white_mocha_cold.png'),
+('Caramel Macchiato', 1, 115, 'Hot 12oz', 'img/caramel_macchiato_hot.png'),
+('Caramel Macchiato', 1, 125, 'Cold 16oz', 'img/caramel_macchiato_cold.png'),
+('Biscoffee', 1, 165, 'Cold 16oz', 'img/biscoffee_cold.png'),
+('Brown Sugar Cinnamon', 1, 95, 'Hot 12oz', 'img/brown_sugar_cinnamon_hot.png'),
+('Brown Sugar Cinnamon', 1, 115, 'Cold 16oz', 'img/brown_sugar_cinnamon_cold.png'),
+('Caramel Brulee', 1, 95, 'Hot 12oz', 'img/caramel_brulee_hot.png'),
+('Caramel Brulee', 1, 120, 'Cold 16oz', 'img/caramel_brulee_cold.png'),
+('Double Choco Chip Latte', 1, 100, 'Hot 12oz', 'img/double_choco_chip_hot.png'),
+('Double Choco Chip Latte', 1, 125, 'Cold 16oz', 'img/double_choco_chip_cold.png');
 
--- Insert Data for Pizza Menu
-INSERT INTO pizza_menu (item_name, type, size, price, image_url) VALUES
-('Ham & Cheese', 'Pizza', '10’’', 299, 'path/to/ham_cheese_10.jpg'),
-('Ham & Cheese', 'Pizza', '12’’', 335, 'path/to/ham_cheese_12.jpg'),
-('Pepperoni', 'Pizza', '10’’', 299, 'path/to/pepperoni_10.jpg'),
-('Pepperoni', 'Pizza', '12’’', 335, 'path/to/pepperoni_12.jpg'),
-('Hawaiian', 'Pizza', '10’’', 299, 'path/to/hawaiian_10.jpg'),
-('Hawaiian', 'Pizza', '12’’', 335, 'path/to/hawaiian_12.jpg'),
-('Cheesy Bacon', 'Pizza', '10’’', 335, 'path/to/cheesy_bacon_10.jpg'),
-('Cheesy Bacon', 'Pizza', '12’’', 385, 'path/to/cheesy_bacon_12.jpg'),
-('All Cheese', 'Pizza', '10’’', 335, 'path/to/all_cheese_10.jpg'),
-('All Cheese', 'Pizza', '12’’', 385, 'path/to/all_cheese_12.jpg'),
-('Beef Aloha', 'Pizza', '10’’', 345, 'path/to/beef_aloha_10.jpg'),
-('Beef Aloha', 'Pizza', '12’’', 395, 'path/to/beef_aloha_12.jpg'),
-('Beefy Mushroom', 'Pizza', '10’’', 350, 'path/to/beefy_mushroom_10.jpg'),
-('Beefy Mushroom', 'Pizza', '12’’', 405, 'path/to/beefy_mushroom_12.jpg'),
-('Cheese Aloha', 'Pizza', '10’’', 360, 'path/to/cheese_aloha_10.jpg'),
-('Cheese Aloha', 'Pizza', '12’’', 415, 'path/to/cheese_aloha_12.jpg'),
-('Supreme', 'Pizza', '10’’', 365, 'path/to/supreme_10.jpg'),
-('Supreme', 'Pizza', '12’’', 410, 'path/to/supreme_12.jpg'),
-('Farmhouse', 'Pizza', '10’’', 365, 'path/to/farmhouse_10.jpg'),
-('Farmhouse', 'Pizza', '12’’', 410, 'path/to/farmhouse_12.jpg'),
-('Kaskada Pizza', 'Pizza', '10’’', 385, 'path/to/kaskada_10.jpg'),
-('Kaskada Pizza', 'Pizza', '12’’', 420, 'path/to/kaskada_12.jpg'),
-('Creamy Spinach', 'Pizza', '10’’', 395, 'path/to/creamy_spinach_10.jpg'),
-('Creamy Spinach', 'Pizza', '12’’', 435, 'path/to/creamy_spinach_12.jpg');
+-- Non-Coffee Menu
+INSERT INTO products (name, type_id, price, size, img) VALUES
+('Matcha Green Tea Latte', 2, 95, 'Hot 12oz', 'img/matcha_green_tea_hot.png'),
+('Matcha Green Tea Latte', 2, 125, 'Cold 16oz', 'img/matcha_green_tea_cold.png'),
+('Strawberry Latte', 2, 125, 'Cold 16oz', 'img/strawberry_latte.png'),
+('Dark Choco Latte', 2, 95, 'Hot 12oz', 'img/dark_choco_hot.png'),
+('Dark Choco Latte', 2, 125, 'Cold 16oz', 'img/dark_choco_cold.png'),
+('Berry Matcha', 2, 135, 'Cold 16oz', 'img/berry_matcha.png'),
+('Choco Berry', 2, 135, 'Cold 16oz', 'img/choco_berry.png');
 
--- Insert Data for Pizza Toppings
-INSERT INTO pizza_toppings (item_name, type, price) VALUES
-('Mozzarella 100g', 'Topping', 70),
-('Pepperoni 100g', 'Topping', 40),
-('Beef 100g', 'Topping', 40),
-('Ham 100g', 'Topping', 30),
-('Mushroom 50g', 'Topping', 20),
-('Pineapple 50g', 'Topping', 20);
+-- Soda Drinks
+INSERT INTO products (name, type_id, price, size, img) VALUES
+('Rose Berry', 3, 85, 'Cold 16oz', 'img/rose_berry.png'),
+('Peach Citrus', 3, 85, 'Cold 16oz', 'img/peach_citrus.png'),
+('Passion Bloom', 3, 85, 'Cold 16oz', 'img/passion_bloom.png'),
+('Hibiscus Lemon', 3, 85, 'Cold 16oz', 'img/hibiscus_lemon.png'),
+('Lemon Ginger Tea Soda', 3, 95, 'Cold 16oz', 'img/lemon_ginger_tea.png');
 
--- Insert Data for Drink Add-Ons
-INSERT INTO drink_add_ons (item_name, type, price) VALUES
-('1 Shot Espresso', 'Add-On', 25),
-('Coffee Syrup', 'Add-On', 15),
-('Coffee Sauce', 'Add-On', 20);
+-- Pizza Menu
+INSERT INTO products (name, type_id, price, size, img) VALUES
+('Ham & Cheese', 4, 299, '10"', 'img/ham_cheese_10.png'),
+('Ham & Cheese', 4, 335, '12"', 'img/ham_cheese_12.png'),
+('Pepperoni', 4, 299, '10"', 'img/pepperoni_10.png'),
+('Pepperoni', 4, 335, '12"', 'img/pepperoni_12.png'),
+('Hawaiian', 4, 299, '10"', 'img/hawaiian_10.png'),
+('Hawaiian', 4, 335, '12"', 'img/hawaiian_12.png'),
+('Cheesy Bacon', 4, 335, '10"', 'img/cheesy_bacon_10.png'),
+('Cheesy Bacon', 4, 385, '12"', 'img/cheesy_bacon_12.png'),
+('All Cheese', 4, 335, '10"', 'img/all_cheese_10.png'),
+('All Cheese', 4, 385, '12"', 'img/all_cheese_12.png'),
+('Beef Aloha', 4, 345, '10"', 'img/beef_aloha_10.png'),
+('Beef Aloha', 4, 395, '12"', 'img/beef_aloha_12.png'),
+('Beefy Mushroom', 4, 350, '10"', 'img/beefy_mushroom_10.png'),
+('Beefy Mushroom', 4, 405, '12"', 'img/beefy_mushroom_12.png'),
+('Cheese Aloha', 4, 360, '10"', 'img/cheese_aloha_10.png'),
+('Cheese Aloha', 4, 415, '12"', 'img/cheese_aloha_12.png'),
+('Supreme', 4, 365, '10"', 'img/supreme_10.png'),
+('Supreme', 4, 410, '12"', 'img/supreme_12.png'),
+('Farmhouse', 4, 365, '10"', 'img/farmhouse_10.png'),
+('Farmhouse', 4, 410, '12"', 'img/farmhouse_12.png'),
+('Kaskada Pizza', 4, 385, '10"', 'img/kaskada_pizza_10.png'),
+('Kaskada Pizza', 4, 420, '12"', 'img/kaskada_pizza_12.png'),
+('Creamy Spinach', 4, 395, '10"', 'img/creamy_spinach_10.png'),
+('Creamy Spinach', 4, 435, '12"', 'img/creamy_spinach_12.png');
 
--- Insert Data for Bread Menu
-INSERT INTO bread_menu (item_name, type, price, image_url) VALUES
-('Korean Garlic Bread', 'Bread', 95, 'img/korean_garlic_bread.png'),
-('Strawberry Muffin', 'Bread', 95, 'img/strawberry_muffin.png'),
-('Ham and Cheese', 'Bread', 35, 'img/ham_and_cheese.png'),
-('Floss Roll (Chicken)', 'Bread', 45, 'img/floss_roll_chicken.png'),
-('Pork Floss Bun (Seaweeds)', 'Bread', 35, 'img/pork_floss_bun.png'),
-('Coffee Bun', 'Bread', 35, 'img/coffee_bun.png'),
-('Cinnamon', 'Bread', 50, 'img/cinnamon.png'),
-('Classic Ensaymada', 'Bread', 35, 'img/classic_ensaymada.png'),
-('Ube Cheese Ensaymada', 'Bread', 45, 'img/ube_cheese_ensaymada.png');
+-- Bread Menu
+INSERT INTO products (name, type_id, price, img) VALUES
+('Korean Garlic Bread', 5, 95, 'img/korean_garlic.png'),
+('Ham and Cheese', 5, 35, 'img/ham_cheese_bread.png'),
+('Floss Roll (Chicken)', 5, 45, 'img/floss_roll_chicken.png'),
+('Floss Bun (Pork)', 5, 35, 'img/floss_bun_pork.png'),
+('Coffee Bun', 5, 35, 'img/coffee_bun.png'),
+('Cinnamon', 5, 50, 'img/cinnamon.png'),
+('Classic Ensaymada', 5, 35, 'img/classic_ensaymada.png'),
+('Ube Cheese Ensaymada', 5, 45, 'img/ube_ensaymada.png');
 
-
-
+-- Add-Ons
+INSERT INTO extras (name, price) VALUES
+('1 Shot Espresso', 25),
+('Coffee Syrup', 15),
+('Coffee Sauce', 20),
+('Mozzarella 100g', 70),
+('Pepperoni 100g', 40),
+('Beef 100g', 40 ),
+('Ham 100g', 30),
+('Mushroom 50g', 20),
+('Pineapple 50g', 20);

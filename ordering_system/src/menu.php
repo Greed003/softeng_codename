@@ -168,15 +168,15 @@
     
       <div class="menu">
         <?php
-          $sql = "SELECT * FROM bread_menu";
+          $sql = "SELECT * FROM products WHERE type_id = 5";
 
-          $stmt = $pdo->query($sql);
+          $stmt = $conn->query($sql);
           $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         ?>
         <?php foreach ($rows as $row): ?>                             
         <div class="product">
-          <img src="<?php echo $row['image_url']; ?>" style="border-radius: 20px;" id="icon" width="309px" height="309px"/>
-          <h2><?php echo $row['item_name']; ?></h2>
+          <img src="<?php echo $row['img']; ?>" style="border-radius: 20px;" id="icon" width="309px" height="309px"/>
+          <h2><?php echo $row['name']; ?></h2>
           <div class="price">
             <h3>₱<?php echo $row['price']; ?></h3>
             <img src="img/plus.png" id="icon" alt="plus" width="47px" height="47px" />

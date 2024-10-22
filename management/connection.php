@@ -10,3 +10,4 @@
         } catch (PDOException $e) {
             die("Error: Could not connect. " . $e->getMessage());
         }
+        
