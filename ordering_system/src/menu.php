@@ -96,8 +96,8 @@
         align-items: center;
         justify-content: center;
         text-align: center;
-        padding-top: 10px;
-        padding-bottom: 10px;
+        padding-top: 20px;
+        padding-bottom: 20px;
         margin: 30px; /* Adjust margin for spacing */
         background-color: #ffffff;
         height: auto;

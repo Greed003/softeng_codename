@@ -3,10 +3,12 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1); // Enable error reporting
 
 require 'connection.php'; // Your database connection file
-
+if (!empty($_POST)) {
+    $data = $_POST; // Use directly from $_POST if available (e.g., during testing)
+} else {
 // Retrieve the JSON data
 $data = json_decode(file_get_contents('php://input'), true);
-
+}
 // Check if data is correctly retrieved
 if ($data === null) {
     echo json_encode(['success' => false, 'error' => 'Invalid JSON']);
