@@ -1,6 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
+use Dotenv\Dotenv;
 
 class GetProductTest extends TestCase
 {
@@ -9,14 +10,21 @@ class GetProductTest extends TestCase
     // Setup method to establish a connection to the test database
     protected function setUp(): void
     {
-        $host = "localhost";
-        $dbname = "kaskada_db"; // Use the actual database or a test database
-        $user = "postgres";
-        $password = "admin";
-        $dsn = "pgsql:host=$host;dbname=$dbname";
+       // Load the .env file to access environment variables
+       $dotenv = Dotenv::createImmutable(__DIR__ . '/../'); // Adjust path as necessary
+       $dotenv->load();
 
-        $this->pdo = new PDO($dsn, $user, $password);
-        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+       $host = $_ENV['DB_HOST'];
+       $dbname = $_ENV['DB_NAME'];
+       $user = $_ENV['DB_USER'];
+       $password = $_ENV['DB_PASSWORD'];
+
+       try {
+           // Create a new PDO instance
+           $this->pdo = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);
+       } catch (PDOException $e) {
+           $this->fail("Error: Could not connect. " . $e->getMessage());
+       }
     }
 
     public function testFetchProductsByTypeId()
