@@ -1,0 +1,15 @@
+{
+    "name": "kaskada/alarm",
+    "type": "project",
+    "require": {
+        "phpunit/phpunit": "^11.4",
+        "doctrine/dbal": "^4.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.4"
+    },    
+    "scripts": {
+        "test": "./vendor/bin/phpunit --bootstrap vendor/autoload.php tests",
+        "db-setup": "php db-setup.php"
+    }
+}
