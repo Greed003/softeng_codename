@@ -464,24 +464,27 @@
         const categoryImages = document.querySelectorAll(".cat img");
 
         const searchInput = document.getElementById('search');
-        const products = document.querySelectorAll('.product');
 
-        // Event listener for the search input
-        searchInput.addEventListener('keyup', function() {
-            const searchText = searchInput.value.toLowerCase().trim();
+        // Function to re-apply search functionality to updated product elements
+        function attachSearchFunctionality() {
+            const products = document.querySelectorAll('.product');
+            searchInput.addEventListener('keyup', function () {
+                const searchText = searchInput.value.toLowerCase().trim();
 
-            // Loop through all product elements
-            products.forEach(product => {
-                const productName = product.getAttribute('data-product-name').toLowerCase();
+                // Loop through all product elements
+                products.forEach(product => {
+                    const productName = product.getAttribute('data-product-name').toLowerCase();
 
-                // Check if the product name includes the search text
-                if (productName.includes(searchText)) {
-                    product.style.display = 'flex'; // Show matching products
-                } else {
-                    product.style.display = 'none'; // Hide non-matching products
-                }
+                    // Check if the product name includes the search text
+                    if (productName.includes(searchText)) {
+                        product.style.display = 'flex'; // Show matching products
+                    } else {
+                        product.style.display = 'none'; // Hide non-matching products
+                    }
+                });
             });
-        });
+        }
+        attachSearchFunctionality();
 
   categoryImages.forEach(image => {
     image.addEventListener("click", function() {
@@ -511,13 +514,15 @@
 
   function refreshProducts(typeId) {
     const menu = document.getElementById("menu");
-
+    const searchInput = document.getElementById('search');
+    searchInput.value = ''; 
     // Fetch new products based on selected type_id (AJAX)
     fetch(`get_products.php?type_id=${typeId}`)
       .then(response => response.text())
       .then(data => {
         menu.innerHTML = data; // Update the menu with new products
         attachAddButtons(); // Re-attach event listeners for add buttons
+        attachSearchFunctionality();
       })
       .catch(error => console.error('Error fetching products:', error));
   }
