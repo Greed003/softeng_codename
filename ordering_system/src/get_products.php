@@ -21,7 +21,7 @@ $stmt->execute(['type_id' => $typeId]);
 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 foreach ($rows as $row): ?>                             
-  <div class="product">
+  <div class="product" data-product-name="<?php echo $row['name']; ?>">
     <img src="<?php echo $row['img']; ?>" style="border-radius: 20px;" id="icon" width="309px" height="309px"/>
     <h2><?php echo $row['name']; ?></h2>
     <div class="price">

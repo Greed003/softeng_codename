@@ -100,7 +100,7 @@
         padding-bottom: 20px;
         margin: 30px; /* Adjust margin for spacing */
         background-color: #ffffff;
-        height: auto;
+        height: 500px;
         width: 350px; /* Adjust width for three products */
         border-radius: 30px;
         border: 2px solid transparent; /* Initial border style */
@@ -462,6 +462,26 @@
         let totalAmount = 0;
         //
         const categoryImages = document.querySelectorAll(".cat img");
+
+        const searchInput = document.getElementById('search');
+        const products = document.querySelectorAll('.product');
+
+        // Event listener for the search input
+        searchInput.addEventListener('keyup', function() {
+            const searchText = searchInput.value.toLowerCase().trim();
+
+            // Loop through all product elements
+            products.forEach(product => {
+                const productName = product.getAttribute('data-product-name').toLowerCase();
+
+                // Check if the product name includes the search text
+                if (productName.includes(searchText)) {
+                    product.style.display = 'flex'; // Show matching products
+                } else {
+                    product.style.display = 'none'; // Hide non-matching products
+                }
+            });
+        });
 
   categoryImages.forEach(image => {
     image.addEventListener("click", function() {
