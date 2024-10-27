@@ -72,7 +72,7 @@ class InsertOrderTest extends TestCase
         $this->assertEquals('Americano', $product['name'], "Product name does not match.");
         $this->assertEquals(2, $items[0]['quantity'], "Quantity does not match.");
         $this->assertEquals(130.00, $items[0]['price'], "Price does not match.");
-        $this->cleanDatabase();
+        // $this->cleanDatabase();
     }
 
     protected function processOrder($json)
