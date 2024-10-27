@@ -26,7 +26,7 @@ class InsertOrderTest extends TestCase
             $this->fail("Error: Could not connect. " . $e->getMessage());
         }
 
-        $this->cleanDatabase();
+        // $this->cleanDatabase();
     }
 
     public function testOrderProcessing()

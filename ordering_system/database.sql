@@ -1,4 +1,4 @@
-
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
 -- Drop existing tables if they exist
 DROP TABLE IF EXISTS order_items;
 DROP TABLE IF EXISTS orders;
@@ -64,9 +64,8 @@ CREATE TABLE order_items (
     price DECIMAL(10, 2) NOT NULL
 );
 
--- Insert Initial Admin and Staff
-INSERT INTO admin (username, password_hash) VALUES ('admin', 'admin') ON CONFLICT DO NOTHING;
-INSERT INTO staff (username, password_hash) VALUES ('staff', 'staff') ON CONFLICT DO NOTHING;
+INSERT INTO admin (username, password_hash) VALUES ('admin', crypt('admin', gen_salt('bf'))) ON CONFLICT DO NOTHING;
+INSERT INTO staff (username, password_hash) VALUES ('staff', crypt('staff', gen_salt('bf'))) ON CONFLICT DO NOTHING;
 
 -- Insert Product Types
 INSERT INTO product_type (name) VALUES 
