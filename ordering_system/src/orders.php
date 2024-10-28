@@ -23,7 +23,7 @@
       }
       .search {
         height: auto;
-        width: 1000px;
+        width: auto;
         display: flex;
         padding-top: 10px;
         align-items: center;
@@ -117,7 +117,7 @@
         background-color: #fffbeb;
         border-radius: 20px;
         border: 1px solid black;
-        width: 970px;
+        width: calc(100vw - 300px);
         height: auto;
         padding: 20px;
         margin-left: 20px;
@@ -183,8 +183,10 @@
         display: none;
       }
       .hidden {
-        display: none; /* Hides the button */
-        width: 120px; /* Set the width to match the original button size */
+        background-color: transparent;
+        border: 1px solid;
+        width: 120px;
+        height: 30px;
       }
       a{
         text-decoration: none;
@@ -296,7 +298,7 @@
           <h2 class="mar">Total: ₱${parseFloat(order.total).toFixed(2)}</h2>
           <h2 class="mar status">Status: ${order.status}</h2>
           ${buttonHtml}
-          <img src="img/arrow_down.png" class="mar toggle-arrow" width="30px" height="30px" />
+          <img src="img/arrow_down.png" class="toggle-arrow" width="30px" height="30px" />
         `;
 
         ordersContainer.appendChild(orderElement);
