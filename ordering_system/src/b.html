@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Americano Tab</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Open Sans', sans-serif;
+            display: flex; /* Use flexbox to center items */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            height: 100vh; /* Full viewport height */
+        }
+
+        .container {
+            position: relative;
+            width: 610px;
+            height: 830px;
+        }
+
+        /* Rectangle */ 
+        .rectangle { 
+            position: absolute;
+            left: 50%; /* Center the rectangle horizontally */
+            top: 50%; /* Center the rectangle vertically */
+            transform: translate(-50%, -50%); /* Center the rectangle */
+            background: #FFFFFF;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 45px;
+            width: 100%; /* Full width of the container */
+            height: 100%; /* Full height of the container */
+            display: flex; /* Use flexbox for children layout */
+            flex-direction: column; /* Stack children vertically */
+            align-items: center; /* Center children horizontally */
+            justify-content: center; /* Center children vertically */
+        }
+
+        /* Image inside the rectangle */
+        .image {
+            position: absolute; /* Still position absolutely to keep it where you want */
+            left: 24.59%; /* Position from the left */
+            right: 24.75%; /* Position from the right */
+            top: 5.78%; /* Position from the top */
+            bottom: 56.99%; /* Position from the bottom */
+            object-fit: cover; /* Cover the area without distortion */
+        }
+
+        /* Heading Styles */
+        h1 {
+            margin-top: -10px; /* Move the heading closer to the image */
+            text-align: center; /* Center the text */
+            font-size: 2em; /* Adjust font size as needed */
+            color: #333; /* Change color as needed */
+        }
+
+        p {
+            text-align: center; /* Center the paragraph text */
+            font-size: 0.8em; /* Smaller font size */
+            color: #666; /* Change color as needed */
+            margin-top: 0; /* Remove space above the paragraph */
+            padding: 0 20px; /* Add padding for better readability */
+        }
+
+        /* Add Ons Styles */
+        .add-ons {
+            position: absolute; /* Absolute positioning */
+            left: 10%; /* Move it more to the left */
+            top: 59%; /* Position from the top */
+            font-family: 'Rosarivo'; /* Font family */
+            font-style: normal; /* Font style */
+            font-weight: 400; /* Font weight */
+            font-size: 20px; /* Font size */
+            line-height: 145%; /* Line height */
+            color: rgba(0, 0, 0, 0.4); /* Text color */
+            text-align: left; /* Align text to the left */
+        }
+
+        /* Button Container for Flexbox Layout */
+        .button-container {
+            position: absolute; /* Absolute positioning */
+            top: 63%; /* Position below Add Ons */
+            left: 50%; /* Center the button container */
+            transform: translateX(-50%); /* Center the container horizontally */
+            display: flex; /* Use flexbox for even spacing */
+            justify-content: space-between; /* Evenly space buttons */
+            width: 80%; /* Width of the button container */
+        }
+
+        /* Button Wrapper */
+        .button-wrapper {
+        min-width: 130px; /* Minimum width for consistent button size */
+        max-width: 110px; /* Maximum width to prevent stretching */
+        margin: 0 10px; /* Adjust margin for spacing */
+        }
+
+        
+        .shot-espresso-button,
+        .coffee-syrup-button,
+        .coffee-sauce-button { 
+            padding: 10px 15px; /* Adjust padding for consistent appearance */
+            width: 100%; /* Ensure button fills width of .button-wrapper */
+            text-align: center; /* Center-align text */
+            background-color: #ffffff; /* Background color */
+            color: #000000; /* Text color */
+            border: none; /* Remove default border */
+            border-radius: 25px; /* Rounded corners */
+            font-size: 14px; /* Font size */
+            cursor: pointer; /* Change cursor on hover */
+            transition: background-color 0.3s; /* Smooth hover effect */
+            box-shadow: 2px 2px 5px gray;
+        }
+
+
+
+        /* Counter Controls Styles */
+        .counter-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center controls under the button */
+            margin-top: -15px; /* Space between button and counter */
+        }
+
+        /* Fixed dimensions for increment and decrement buttons */
+        .decrement-button,
+        .increment-button {
+            width: 30px; /* Fixed width */
+            height: 30px; /* Fixed height */
+            background-color: #AC8F64;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 50%; /* Make buttons round */
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin: 0 5px; /* Space between buttons */
+        }
+
+        .decrement-button:hover,
+        .increment-button:hover {
+            background-color: #9E8560; /* Darker color on hover */
+        }
+
+        /* Quantity Counter Styles */
+        .quantity-counter {
+            font-size: 14px;
+            color: #333;
+            width: 30px; /* Fixed width for counter display */
+            text-align: center; /* Center-align the counter text */
+        }
+
+        /* Total Styles */
+        .total {
+            margin-top: 5px; /* Space above the total */
+            font-size: 16px; /* Font size for the total */
+            color: #333; /* Color for the total text */
+            text-align: center; /* Center the text */
+            position: absolute; /* Position it absolutely if needed */
+            top: 73%; /* Adjust this value to move it below the buttons */
+            left: 50%; /* Center the total text */
+            transform: translateX(-50%); /* Center the total text */
+        }
+
+        /* Product Counter Styles */
+        .product-counter {
+            position: absolute;
+            top: 78%; /* Position below the total */
+            left: 50%; /* Center the product counter */
+            transform: translateX(-50%); /* Center the product counter */
+            display: flex;
+            align-items: center; /* Align items vertically */
+            background-color: #ffffff; /* Light blue background */
+            border: 2px solid #ffffff; /* Light blue border */
+            border-radius: 35px; /* Rounded corners */
+            box-shadow: 2px 2px 5px gray;
+            padding: 5px 10px; /* Reduced padding for smaller size */
+            font-size: 14px; /* Smaller font size */
+        }
+
+        .product-counter .counter-controls {
+            margin: 0; /* Remove margin for better alignment */
+        }
+
+        .product-counter .decrement-button,
+        .product-counter .increment-button {
+            background-color: #ffffff; /* New background color for product counter buttons */
+            color: #AC8F64;
+            border-radius: 50%; /* Make buttons round */
+            padding: 5px; /* Reduced padding */
+            width: 30px; /* Reduced width */
+            height: 30px; /* Reduced height */
+            transition: background-color 0.3s; /* Smooth background change on hover */
+        }
+
+        .product-counter .decrement-button:hover,
+        .product-counter .increment-button:hover {
+            background-color: #F0F0F0; /* Lighter color on hover */
+        }
+
+        .add-to-cart {
+            position: absolute; /* Positioning it absolutely to the rectangle */
+            top: 85%; /* Set this below the product counter */
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 10px; /* Add some margin if necessary */
+        }
+
+        .add-to-cart-button {
+            padding: 25px 70px; /* Increase padding for more size */
+            font-size: 18px; /* Increase font size */
+            font-family: 'Rosarivo'; /* Font family */
+            font-style: normal;
+            background-color: #d67663;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 35px; /* Optional: adjust border radius for a softer look */
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+
+        .add-to-cart-button:hover {
+            background-color: #D65C45; /* Darker color on hover */
+        }
+
+        .hidden {
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="rectangle">
+            <img src="img/americano.png" alt="Description of Image" class="image">
+            <h1>Americano Cold 16onz</h1>
+            <p>A delicious coffee beverage made from espresso and hot water.</p>
+            <p class="add-ons">ADD ONS:</p>
+            <div class="button-container">
+                <!-- Button wrappers for add-ons -->
+                <div class="button-wrapper">
+                    <button class="shot-espresso-button">Shot Espresso</button>
+                    <p>₱25</p>
+                    <div class="counter-controls hidden">
+                        <button class="decrement-button" onclick="changeQuantity('espresso', -1, 25)">-</button>
+                        <span class="quantity-counter" id="espresso-counter">0</span>
+                        <button class="increment-button" onclick="changeQuantity('espresso', 1, 25)">+</button>
+                    </div>
+                </div>
+                <div class="button-wrapper">
+                    <button class="coffee-syrup-button">Coffee Syrup</button>
+                    <p>₱15</p>
+                    <div class="counter-controls hidden">
+                        <button class="decrement-button" onclick="changeQuantity('syrup', -1, 15)">-</button>
+                        <span class="quantity-counter" id="syrup-counter">0</span>
+                        <button class="increment-button" onclick="changeQuantity('syrup', 1, 15)">+</button>
+                    </div>
+                </div>
+                <div class="button-wrapper">
+                    <button class="coffee-sauce-button">Coffee Sauce</button>
+                    <p>₱20</p>
+                    <div class="counter-controls hidden">
+                        <button class="decrement-button" onclick="changeQuantity('sauce', -1, 20)">-</button>
+                        <span class="quantity-counter" id="sauce-counter">0</span>
+                        <button class="increment-button" onclick="changeQuantity('sauce', 1, 20)">+</button>
+                    </div>
+                </div>
+            </div>  
+            <p class="total">Total: ₱0</p>
+            <!-- Product Counter for Americano -->
+            <div class="product-counter">
+                <div class="product-counter-controls">
+                    <button class="decrement-button" onclick="changeQuantity('americano', -1, 85)">-</button>
+                    <span class="quantity-counter" id="americano-counter">0</span>
+                    <button class="increment-button" onclick="changeQuantity('americano', 1, 85)">+</button>
+                </div>
+            </div>
+            <!-- Add to Cart Button -->
+             <div class="add-to-cart">
+                <button class="add-to-cart-button" onclick="addToCart()">Add to Cart</button>
+             </div>
+        </div>
+        
+    </div>
+
+    <script>
+        function changeQuantity(type, delta, price) {
+            const counterId = type + '-counter';
+            const counterElement = document.getElementById(counterId);
+            let currentQuantity = parseInt(counterElement.textContent);
+
+            // Adjust quantity based on the delta
+            currentQuantity += delta;
+
+            // Ensure quantity doesn't go below 0
+            if (currentQuantity < 0) {
+                currentQuantity = 0;
+            }
+
+            // Update the counter display
+            counterElement.textContent = currentQuantity;
+
+            // Calculate the total
+            updateTotal();
+        }
+
+        function updateTotal() {
+            const espressoCount = parseInt(document.getElementById('espresso-counter').textContent);
+            const syrupCount = parseInt(document.getElementById('syrup-counter').textContent);
+            const sauceCount = parseInt(document.getElementById('sauce-counter').textContent);
+            const americanoCount = parseInt(document.getElementById('americano-counter').textContent);
+
+            const total = (espressoCount * 25) + (syrupCount * 15) + (sauceCount * 20) + (americanoCount * 85);
+            document.querySelector('.total').textContent = 'Total: ₱' + total;
+        }
+
+        function addToCart() {
+            alert("Added to Cart!");
+        }
+
+        // Add click listeners to toggle visibility
+        document.querySelector('.shot-espresso-button').addEventListener('click', function() {
+            toggleCounterVisibility('espresso');
+        });
+
+        document.querySelector('.coffee-syrup-button').addEventListener('click', function() {
+            toggleCounterVisibility('syrup');
+        });
+
+        document.querySelector('.coffee-sauce-button').addEventListener('click', function() {
+            toggleCounterVisibility('sauce');
+        });
+
+        function toggleCounterVisibility(type) {
+            const counterElement = document.getElementById(type + '-counter').parentElement;
+            counterElement.classList.toggle('hidden');
+        }
+    </script>
+
+</body>
+</html>
