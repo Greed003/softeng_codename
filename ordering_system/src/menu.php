@@ -603,8 +603,8 @@
               quantityDisplay.innerText = newQuantity;
               
               // Update the price displayed for the item
-              const priceElement = newItem.querySelector("#price");
-              priceElement.innerText = `₱${(parseFloat(price) * newQuantity).toFixed(2)}`;
+              //const priceElement = newItem.querySelector("#price");
+              //priceElement.innerText = `₱${(parseFloat(price) * newQuantity).toFixed(2)}`;
               
               totalAmount += parseFloat(price); // Increase total
               updateTotal();
@@ -618,8 +618,8 @@
                   quantityDisplay.innerText = newQuantity;
                   
                   // Update the price displayed for the item
-                  const priceElement = newItem.querySelector("#price");
-                  priceElement.innerText = `₱${(parseFloat(price) * newQuantity).toFixed(2)}`;
+                  //const priceElement = newItem.querySelector("#price");
+                  //priceElement.innerText = `₱${(parseFloat(price) * newQuantity).toFixed(2)}`;
                   
                   totalAmount -= parseFloat(price); // Decrease total
                   updateTotal();
