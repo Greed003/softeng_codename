@@ -100,7 +100,7 @@
         padding-bottom: 20px;
         margin: 30px; /* Adjust margin for spacing */
         background-color: #ffffff;
-        height: 500px;
+        height: 390px;
         width: 350px; /* Adjust width for three products */
         border-radius: 30px;
         border: 2px solid transparent; /* Initial border style */
@@ -263,16 +263,6 @@
         font-size: 30px;
         font-weight: 500;
       }
-      /* .menu2 {
-        border-radius: 20px;
-        font-size: 30px;
-        font-weight: 600;
-        background-color: #AC8F64;
-        border: 3px solid black;
-        width: 159px;
-        color: #483431;
-        margin: 20px;
-      } */
       button{
         border: unset;
         background: none;
@@ -376,6 +366,153 @@
         flex-direction: row;
         justify-content: space-between;
       }
+      .add_btn1 {
+        border-radius: 30px;
+        background-color: #d65c43;
+        width: 250px;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        cursor: pointer;
+        font-size: small;
+        font-weight: lighter;
+        margin-top: 20px;
+      }
+      .pd {
+        display: none;
+        position: fixed; /* Fixed position to cover the viewport */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent black */
+        z-index: 1; /* Ensure it's above other content */
+        justify-content: center;
+        align-items: center;
+      }
+      .des{
+        padding: 30px;
+        display: flex;
+        border-radius: 30px;
+        width: auto;
+        height: auto;
+        flex-direction: column;
+        background-color: #F4F4F4; /* Semi-transparent black */
+        z-index: 1;
+        transition: right 0.5s ease; /* Smooth sliding transition */
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2),
+          0 2px 2px 0 rgba(0, 0, 0, 0.19);
+      }
+      .des2{
+        display: flex;
+        flex-direction: row;
+      }
+      .des3{
+        padding-left: 20px;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .pdt1{
+        font-size: 40px;
+        margin-top: 0;
+        font-family:'Times New Roman', Times, serif;
+      }
+      .addons{
+        background-color: white;
+        border-radius: 30px;
+        border: 2px solid;
+        width: 150px;
+        height: auto;
+        text-align: center;
+        font-weight: bold;
+        margin-right: 10px;
+        cursor: pointer;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2),
+          0 2px 2px 0 rgba(0, 0, 0, 0.19);
+      }
+      .pdp{
+        width: 500px;
+      }
+    .pdrow{
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 20px;
+    }
+    .pdprice{
+        font-size: 38px;
+        font-weight: bold;
+        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        margin-left: 10px;
+        margin: 0;
+        margin-right: 20px;
+      }
+      .hh5{
+        margin: 0;
+        margin-bottom: 10px;
+      }
+      .va{
+        display: block;
+      }
+      .ao{
+        display: block;
+      }
+      #icon{
+        cursor: pointer;
+      }
+      .quan{
+        padding-left: 10px;
+        padding-right: 10px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 120px;
+        height: 47px;
+        border-radius: 30px;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2),
+          0 2px 2px 0 rgba(0, 0, 0, 0.19);
+        border: 1px solid;
+      }
+      .cprice{
+        display: flex;
+        flex-direction: row;
+      }
+      .minus, .plus{
+        cursor: pointer;
+        color: #AC8F64;
+      }
+      .xx {
+        width: 100%;
+        text-align: right;
+      }
+      .opd{
+        height: 150px;
+      }
+      .hot{
+        display: block;
+      }
+      .cold{
+        display: block;
+      }
+      .hco{
+        display: flex;
+        flex-direction: row;
+      }
+      .ino{
+        display: none;
+        flex-direction: row;
+      }
+      .cf{
+        display: flex;
+      }
+      .pz{
+        display: none;
+      }
+
     </style>
   </head>
 
@@ -414,7 +551,7 @@
     <div class="order_container">
       <div class="row">
         <h1 class="f40">My Order</h1>
-        <h1 class="f20">HIDE ></h1>
+        <img id="arrow-back" src="img/arrow-right.png" id="soda" alt="soda" width="80px" height="40px" cursor="pointer"/>
       </div>
       <div class="item">
         <h1 class="f30">Total Order</h1>
@@ -451,9 +588,75 @@
         <h3 class="check_n3">If you have any complaints or issues kindly move to the cashier for customer support.</h3>
       </div>
     </div>
+    <div class="pd">
+  <div class="des">
+    <div class="des2">
+      <img id="product-img" src="img/coffee_bun.png" alt="product" width="450px" height="450px" style="margin-top: 30px; border-radius: 20px;"/>
+      <div class="des3">
+        <div class="xx">
+          <img src="img/x.png" id="icon" class="close1" alt="close" width="30px" height="30px"/>
+        </div>
+        <div>
+          <h1 class="pdt1" id="product-name">Coffee Bun</h1>
+          <p class="pdp" id="product-description">A coffee bun is a sweet, soft bread roll topped with a crunchy, coffee-flavored glaze.</p>
+        </div>
+        <div class="opd">
+          <div class="va">
+            <h5 class="hh5">OPTION</h5>
+            <div class="hco">
+              <div class="hot">
+                <img id="hot-option" data-size="Hot 12oz" src="img/hot.png" alt="hot" width="130px" height="130px" />
+              </div>
+              <div class="cold">
+                <img id="cold-option" data-size="Cold 16oz" src="img/cold1.png" alt="cold" width="130px" height="130px" />
+              </div>
+            </div>
+            <div class="ino">
+              <div class="ten">
+                <img id="ten-option" data-size="10\"" src="img/10inch.png" alt="10\"" width="130px" height="130px" />
+              </div>
+              <div class="twelve">
+                <img id="twelve-option" data-size="12\"" src="img/12inch1.png" alt="12\"" width="130px" height="130px" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ao">
+          <h5 class="hh5">ADD ONS</h5>
+          <div class="pdrow cf">
+            <div class="addons shot_espresso" data-add-ons="" data-add-price="25">Shot Espresso</div>
+            <div class="addons coffee_syrup" data-add-ons=""  data-add-price="15">Coffee Syrup</div>
+            <div class="addons coffee_sauce" data-add-ons="" data-add-price="20">Coffee Sauce</div>
+          </div>
+          <div class="pdrow pz">
+            <div class="addons" data-add-ons="" data-add-price="70">Mozzarella 100g</div>
+            <div class="addons" data-add-ons="" data-add-price="40">Pepperoni 100g</div>
+            <div class="addons" data-add-ons="" data-add-price="20">Pineapple 50g</div>
+            <div class="addons" data-add-ons="" data-add-price="30">Ham 50g</div>
+          </div>
+        </div>
+        <div class="">
+          <div class="cprice">
+            <h3 class="pdprice" id="product-price">₱35</h3>
+            <div class="quan">
+              <h1 class="minus">-</h1>
+              <h1 class="quantity1">1</h1>
+              <h1 class="plus">+</h1>
+            </div>
+          </div>
+          <div class="add_btn1">
+            <h3 class="">ADD TO CART</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const orderButton = document.querySelector(".order");
+        const arrowBack = document.querySelector("#arrow-back");
         const orderContainer = document.querySelector(".order_container");
         const overlay = document.querySelector(".overlay");
         const totalButton = document.querySelector(".total_btn");
@@ -464,7 +667,7 @@
         const categoryImages = document.querySelectorAll(".cat img");
 
         const searchInput = document.getElementById('search');
-
+        
         // Function to re-apply search functionality to updated product elements
         function attachSearchFunctionality() {
             const products = document.querySelectorAll('.product');
@@ -485,6 +688,288 @@
             });
         }
         attachSearchFunctionality();
+        
+        function showProductDetails(product) {
+    const pdContainer = document.querySelector(".pd"); // The container for product details
+    const pz = document.querySelector(".pz");
+    const cf = document.querySelector(".cf");
+    const ino = document.querySelector(".ino");
+    const hco = document.querySelector(".hco");
+
+    // Populate the details with the clicked product data
+    document.getElementById("product-img").src = product.img;
+    document.getElementById("product-name").textContent = product.name;
+    document.getElementById("product-description").textContent = product.description;
+
+    // Set initial price for the first size option
+    const initialSize = product.sizes[0]; // Default to the first size
+    document.getElementById("product-price").textContent = `₱${initialSize.price}`;
+
+    // Option buttons logic
+    const hotOption = document.getElementById("hot-option");
+    const coldOption = document.getElementById("cold-option");
+    const tenOption = document.getElementById("ten-option");
+    const twelveOption = document.getElementById("twelve-option");
+
+    const hot = document.querySelector(".hot");
+
+    // Set size and price for Hot and Cold options dynamically
+    hotOption.setAttribute("data-size", initialSize.size);
+    hotOption.setAttribute("data-price", initialSize.price);
+    hotOption.src = "img/hot.png"; // Default hot option image
+
+    coldOption.setAttribute("data-size", product.sizes[1]?.size || "Cold 16oz");
+    coldOption.setAttribute("data-price", product.sizes[1]?.price || initialSize.price);
+    coldOption.src = "img/cold1.png"; // Default cold option image
+
+    // Set size and price for 10-inch and 12-inch options dynamically
+    tenOption.setAttribute("data-size", "10\"");
+    tenOption.setAttribute("data-price", product.sizes[0]?.price || initialSize.price);
+    tenOption.src = "img/10inch.png"; // Default 10-inch option image
+
+    twelveOption.setAttribute("data-size", "12\"");
+    twelveOption.setAttribute("data-price", product.sizes[1]?.price || initialSize.price);
+    twelveOption.src = "img/12inch1.png"; // Default 12-inch option image
+
+    // Remove existing event listeners and add new ones for Hot, Cold, 10-inch, and 12-inch options
+    hotOption.replaceWith(hotOption.cloneNode(true));
+    coldOption.replaceWith(coldOption.cloneNode(true));
+    tenOption.replaceWith(tenOption.cloneNode(true));
+    twelveOption.replaceWith(twelveOption.cloneNode(true));
+
+    const newHotOption = document.querySelector("#hot-option");
+    const newColdOption = document.querySelector("#cold-option");
+    const newTenOption = document.querySelector("#ten-option");
+    const newTwelveOption = document.querySelector("#twelve-option");
+
+    // Hot Option Click Event
+    newHotOption.addEventListener("click", function () {
+        newHotOption.src = "img/hot.png"; // Update hot option image
+        newColdOption.src = "img/cold1.png"; // Reset cold option image
+        document.getElementById("product-price").textContent = `₱${newHotOption.getAttribute("data-price")}`;
+        // Reset all selected add-ons
+        resetAddons();
+    });
+
+    // Cold Option Click Event
+    newColdOption.addEventListener("click", function () {
+        newColdOption.src = "img/cold.png"; // Update cold option image
+        newHotOption.src = "img/hot1.png"; // Reset hot option image
+        document.getElementById("product-price").textContent = `₱${newColdOption.getAttribute("data-price")}`;
+        // Reset all selected add-ons
+        resetAddons();
+    });
+
+    // 10-inch Option Click Event
+    newTenOption.addEventListener("click", function () {
+        newTenOption.src = "img/10inch.png"; // Update 10-inch option image
+        newTwelveOption.src = "img/12inch1.png"; // Reset 12-inch option image
+        document.getElementById("product-price").textContent = `₱${newTenOption.getAttribute("data-price")}`;
+        // Reset all selected add-ons
+        resetAddons();
+    });
+
+    // 12-inch Option Click Event
+    newTwelveOption.addEventListener("click", function () {
+        newTwelveOption.src = "img/12inch.png"; // Update 12-inch option image
+        newTenOption.src = "img/10inch1.png"; // Reset 10-inch option image
+        document.getElementById("product-price").textContent = `₱${newTwelveOption.getAttribute("data-price")}`;
+        // Reset all selected add-ons
+        resetAddons();
+    });
+
+    // Reset Add-ons function
+    function resetAddons() {
+        const addons = document.querySelectorAll('.addons');
+        addons.forEach(addon => {
+            addon.style.backgroundColor = ''; // Reset background color
+            addon.setAttribute('data-add-ons', ''); // Clear the selected add-on data
+        });
+    }
+
+    // Display product size options based on product attributes
+    const vaSection = document.querySelector(".va");
+    const aoSection = document.querySelector(".ao");
+
+    if (!product.sizes || product.sizes.length === 0 || product.sizes.some(size => !size.size)) {
+        vaSection.style.display = "none";
+    } else {
+        vaSection.style.display = "block";
+    }
+
+    if (product.sizes.length === 1 && product.sizes[0].size === "Cold 16oz") {
+        hot.style.display = "none"; // Hide the hot option
+        newColdOption.src = "img/cold.png";
+    } else {
+        hot.style.display = "block"; // Show the hot option
+    }
+
+    if (product.type_id === "1") {
+        aoSection.style.display = "block";
+        pz.style.display = "none";
+        cf.style.display = "flex";
+    } else if (product.type_id === "4") {
+        aoSection.style.display = "block";
+        pz.style.display = "flex";
+        cf.style.display = "none";
+        ino.style.display = "flex";
+        hco.style.display = "none";
+    } else {
+        aoSection.style.display = "none";
+    }
+
+    pdContainer.style.display = "flex";
+
+    // Reset quantity and set up listeners
+    const quantityElement = document.querySelector(".quantity1");
+
+    const minusButton = document.querySelector(".minus");
+    const plusButton = document.querySelector(".plus");
+
+    minusButton.replaceWith(minusButton.cloneNode(true));
+    plusButton.replaceWith(plusButton.cloneNode(true));
+
+    const newMinusButton = document.querySelector(".minus");
+    const newPlusButton = document.querySelector(".plus");
+
+    newMinusButton.addEventListener("click", function () {
+        if (quantity > 1) {
+            quantity -= 1;
+            quantityElement.textContent = quantity;
+        }
+    });
+
+    newPlusButton.addEventListener("click", function () {
+        quantity += 1;
+        quantityElement.textContent = quantity;
+    });
+    handleAddonSelection();
+    const priceElement = document.getElementById("product-price");
+    attachAddButton(product, quantityElement, priceElement); // Pass priceElement for real-time updates
+    let quantity = 1; // Reset quantity to 1
+    quantityElement.textContent = quantity;
+}
+
+
+// Function to handle addon selection and price update
+function handleAddonSelection() {
+    const addons = document.querySelectorAll('.addons'); // Select all addon elements
+    const priceElement = document.getElementById("product-price"); // Element that displays the price
+
+    addons.forEach(addon => {
+        addon.addEventListener('click', function() {
+            // Get the price of the selected addon from data-add-price attribute
+            const addonPrice = parseFloat(addon.getAttribute('data-add-price')) || 0;
+
+            // Get the current product price displayed
+            let currentPrice = parseFloat(priceElement.textContent.replace('₱', '').trim());
+
+            // Check if the addon is already selected
+            const currentAddonText = addon.textContent.trim();
+            if (addon.style.backgroundColor === 'rgb(172, 143, 100)') {  // RGB equivalent of your color
+                addon.style.backgroundColor = ''; // Reset the background color
+                addon.setAttribute('data-add-ons', ''); // Remove the text from data-add-ons
+                currentPrice -= addonPrice; // Subtract the addon price if deselected
+            } else { // If not selected, mark it as selected
+                addon.style.backgroundColor = '#AC8F64'; // Change background color when selected
+                addon.setAttribute('data-add-ons', `1x ${currentAddonText}`); // Save the addon text with "1x" to data-add-ons
+                currentPrice += addonPrice; // Add the addon price if selected
+            }
+
+            // Update the price display with the new total
+            priceElement.textContent = `₱${currentPrice.toFixed(2)}`;
+        });
+    });
+}
+// Call the function to enable addon selection and price update
+
+function attachAddButton(product, quantityElement, priceElement) {
+    const addButton = document.querySelector(".add_btn1");
+    if (!addButton) {
+        console.error("Add button not found in product details.");
+        return;
+    }
+
+    addButton.replaceWith(addButton.cloneNode(true));
+    const newButton = document.querySelector(".add_btn1");
+
+    newButton.addEventListener("click", function () {
+        const hotOption = document.querySelector("#hot-option");
+        const coldOption = document.querySelector("#cold-option");
+
+        let size = hotOption.src.includes("hot.png")
+            ? hotOption.getAttribute("data-size")
+            : coldOption.getAttribute("data-size");
+
+        let price = hotOption.src.includes("hot.png")
+            ? hotOption.getAttribute("data-price")
+            : coldOption.getAttribute("data-price");
+
+        size = size === null || size === "null" ? "" : size;
+        price = price === null || price === "null" ? "0" : price;
+
+        // Get the selected add-ons from data-add-ons attribute
+        const selectedAddons = [];
+        const addons = document.querySelectorAll('.addons');
+        addons.forEach(addon => {
+            const addonText = addon.getAttribute('data-add-ons');
+            if (addonText) {
+                selectedAddons.push(addonText); // Add the text of selected addon
+            }
+        });
+        const productPriceText = priceElement.textContent; // Use the specific price element passed to the function
+        console.log("Adding product:", {
+            name: product.name,
+            size: size,
+            price: productPriceText,
+            img: product.img,
+            quantity: parseInt(quantityElement.textContent, 10),
+            addons: selectedAddons // Add the selected add-ons data
+        });
+
+        // Add product to order with add-ons
+        addProductToOrder(product.name, productPriceText, product.img, size, parseInt(quantityElement.textContent, 10), selectedAddons);
+        closeDetails();
+    });
+}
+
+
+// Close the product details view
+function closeDetails() {
+    const pdContainer = document.querySelector(".pd");
+    pdContainer.style.display = "none";
+     // Reset all selected add-ons
+    const addons = document.querySelectorAll('.addons');
+    addons.forEach(addon => {
+        addon.style.backgroundColor = ''; // Reset background color
+        addon.setAttribute('data-add-ons', ''); // Clear the selected add-on data
+    });
+}
+
+// Attach event listeners to products
+function attachProductButtons() {
+    const products = document.querySelectorAll(".product");
+
+    products.forEach(productElement => {
+        productElement.addEventListener("click", function () {
+            const product = {
+                name: productElement.getAttribute("data-product-name"),
+                description: productElement.getAttribute("data-product-description"),
+                img: productElement.getAttribute("data-product-img"),
+                sizes: JSON.parse(productElement.getAttribute("data-sizes")), // Parsing JSON data for sizes
+                type_id: productElement.getAttribute("data-type-id")
+            };
+            showProductDetails(product);
+        });
+    });
+}
+attachProductButtons();
+// Close the product details when the close button is clicked
+document.querySelectorAll(".xx").forEach(closeButton => {
+    closeButton.addEventListener("click", function () {
+        closeDetails();
+    });
+});
 
   categoryImages.forEach(image => {
     image.addEventListener("click", function() {
@@ -521,26 +1006,11 @@
       .then(response => response.text())
       .then(data => {
         menu.innerHTML = data; // Update the menu with new products
-        attachAddButtons(); // Re-attach event listeners for add buttons
+       // Re-attach event listeners for add buttons
         attachSearchFunctionality();
+        attachProductButtons();
       })
       .catch(error => console.error('Error fetching products:', error));
-  }
-
-  function attachAddButtons() {
-    const addButtons = document.querySelectorAll(".add");
-    addButtons.forEach(button => {
-      button.addEventListener("click", function() {
-        const productElement = this.closest(".product");
-        const productName = productElement.querySelector("h2").innerText;
-        const priceText = productElement.querySelector(".price h3").innerText;
-        const sizeText = productElement.querySelector(".price h3[id='size']").innerText; // Get size
-        const price = parseFloat(priceText.replace("₱", ""));
-
-        // Call your existing function to add the product to the order
-        addProductToOrder(productName, price, productElement.querySelector("img").src, sizeText); // Pass size
-      });
-    });
   }
 
         // Function to toggle the order container and overlay visibility
@@ -554,10 +1024,11 @@
   
         // Close the order container when clicking on the overlay
         overlay.addEventListener("click", toggleOrderContainer);
+        arrowBack.addEventListener("click", toggleOrderContainer);
   
-        function addProductToOrder(productName, price, imageSrc, size) {
+        function addProductToOrder(productName, price, imageSrc, size, quantity, addons) {
           const itemContainer = document.querySelector(".scroll");
-
+          price = parseFloat(price.replace('₱', '').trim());
           // Create the product HTML element
           const newItem = document.createElement("div");
           newItem.classList.add("item_con");
@@ -574,9 +1045,10 @@
                       <div class="rows">
                           <h1 class="name" style="margin-left:10px;">${productName}</h1><h1 class="size name" id="size">${size ? size: ''}</h1>
                       </div> 
+                      <h5 class="add_ons" style="margin-right: 40px; margin:0; color: gray;">${addons}</h5>
                       <div class="rows">
                           <img src="img/minus.png" alt="minus" class="minus" style="border-radius: 12px;" width="47px" height="47px"/>
-                          <h1 class="quantity">1</h1>
+                          <h1 class="quantity">${quantity}</h1>
                           <img src="img/plus.png" alt="plus" class="plus" style="border-radius: 12px;" width="47px" height="47px"/>
                           <h1 class="name" id="price">₱${price.toFixed(2)}</h1>
                       </div>
@@ -677,6 +1149,9 @@
               const priceText = item.querySelector("#price").innerText; // Get the price directly from the #price element
               const price = parseFloat(priceText.replace("₱", "").trim()); // Remove "₱" and convert to a number
               const size = item.querySelector("#size").innerText; // Get the size element
+              const addonsElement = item.querySelector(".add_ons");
+              const addons = addonsElement ? addonsElement.innerText : '';
+              const formattedAddons = addons.split(",").map(addon => `<li>${addon.trim()}</li>`).join("");
 
               totalCheckAmount += price; 
 
@@ -686,6 +1161,7 @@
                   <h1 class="check_n4 quantity" id="q">${quantity}x</h1>
                   <h1 class="check_n4 product-name" id="pn">${productName}</h1>
                   <h1 class="check_n4 size" id="size">${size}</h1> 
+                  <h1 class="check_n4 add_ons" id="add_ons">${formattedAddons}</h1> 
                   <h1 class="check_n4 p" id="p">₱${price.toFixed(2)}</h1>
               `;
               checkContainer.appendChild(checkItem);
@@ -717,7 +1193,7 @@
         const nameElement = item.querySelector(".product-name"); // Change to class selector
         const priceElement = item.querySelector(".p"); // Change to class selector
         const sizeElement = item.querySelector(".size"); // Change to class selector
-
+        const add_ons = item.querySelector(".add_ons");
         // Check if the item has the required elements
         if (nameElement && priceElement && quantityElement) {
             const quantity = parseInt(quantityElement.innerText.replace("x", "").trim()); // Extract quantity
@@ -727,6 +1203,7 @@
                 productName: nameElement.innerText, // Use innerText for product name
                 quantity: quantity,
                 price: price,
+                add_ons: add_ons.innerText,
                 size: sizeElement ? sizeElement.innerText : '' // Ensure size is included even if undefined
             });
         } else {

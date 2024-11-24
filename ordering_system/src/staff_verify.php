@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $password = $_POST['password'];
 
   // Prepare SQL statement to check user
-  $stmt = $pdo->prepare("SELECT password_hash FROM staff WHERE username = :username");
+  $stmt = $pdo->prepare("SELECT password_hash FROM admin WHERE username = :username");
   $stmt->bindParam(':username', $username);
   $stmt->execute();
   $result = $stmt->fetch(PDO::FETCH_ASSOC);

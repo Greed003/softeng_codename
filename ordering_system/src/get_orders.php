@@ -3,7 +3,7 @@ require 'connection.php';
 
 try {
     $stmt = $pdo->query("
-        SELECT o.order_id, o.name, o.status, o.total, oi.quantity, p.name AS product_name
+        SELECT o.order_id, o.name, oi.add_ons, o.status, o.total, oi.quantity, p.name AS product_name
         FROM orders o
         JOIN order_items oi ON o.order_id = oi.order_id
         JOIN products p ON oi.product_id = p.product_id

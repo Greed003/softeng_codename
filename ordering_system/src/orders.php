@@ -265,6 +265,7 @@
         }
         groupedOrders[order.order_id].items.push({
           quantity: order.quantity,
+          addons: order.add_ons,
           product_name: order.product_name
         });
       });
@@ -282,7 +283,7 @@
             itemsHtml += `<h2 class="mar to txt">Items: ${item.quantity}x ${item.product_name}&emsp;</h2>`;
           } else {
             // For subsequent items, use the normal format
-            itemsHtml += `<h2 class="mar tc">&emsp;&emsp;&emsp;${item.quantity}x ${item.product_name}</h2>`;
+            itemsHtml += `<h2 class="mar tc">&emsp;&emsp;&emsp;${item.quantity}x ${item.product_name} ${item.addons}</h2>`;
           }
         });
         // Determine whether to show the button based on order status
