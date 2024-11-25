@@ -35,6 +35,7 @@ try {
         echo '<div class="orders" data-status="' . htmlspecialchars($order['status']) . '">';
         echo '  <div class="row">';
         echo '      <h2 class="mar w">Name: ' . htmlspecialchars($order['customer_name']) . '</h2>';
+        echo '      <h2 class="mar">Service: Take Out</h2>';
         echo '      <h2 class="mar w">Total: ₱' . htmlspecialchars($order['total']) . '</h2>';
         echo '      <h2 class="mar">Status: ' . htmlspecialchars($order['status']) . '</h2>';
         echo '      <img src="img/arrow_down.png" class="mar toggle-arrow" width="30px" height="30px" />';

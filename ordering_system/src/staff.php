@@ -23,7 +23,7 @@
       }
       .search {
         height: auto;
-        width: 1000px;
+        width: 100%;
         display: flex;
         padding-top: 10px;
         align-items: center;
@@ -171,7 +171,7 @@
         background-color: #fffbeb;
         border-radius: 20px;
         border: 1px solid black;
-        width: 970px;
+        width: auto;
         height: auto;
         padding: 20px;
         margin-left: 20px;
@@ -256,6 +256,7 @@
           <div class="orders" data-status="Pending">
             <div class="row">
               <h2 class="mar w">Name: Reyes</h2>
+              <h2 class="mar">Service: Dine In</h2>
               <h2 class="mar w">Total: ₱160.00</h2>
               <h2 class="mar">Status: Pending</h2>
               <img
@@ -305,6 +306,7 @@
           <div class="orders" data-status="Pending">
             <div class="row">
               <h2 class="mar w">Name: Rv</h2>
+              <h2 class="mar">Service: Take Out</h2>
               <h2 class="mar w">Total: ₱260.00</h2>
               <h2 class="mar">Status: Pending</h2>
               <img
@@ -506,7 +508,7 @@ const orderDetails = {
     table.appendChild(changeRow);
 
     // Update the status to "Completed"
-    const statusElement = this.closest(".orders").querySelector("h2.mar:nth-child(3)");
+    const statusElement = this.closest(".orders").querySelector("h2.mar:nth-child(4)");
     statusElement.textContent = "Status: Completed";
 
     // Update the status attribute

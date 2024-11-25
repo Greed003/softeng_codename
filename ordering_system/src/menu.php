@@ -882,7 +882,6 @@ function handleAddonSelection() {
     });
 }
 // Call the function to enable addon selection and price update
-
 function attachAddButton(product, quantityElement, priceElement) {
     const addButton = document.querySelector(".add_btn1");
     if (!addButton) {
@@ -936,6 +935,7 @@ function attachAddButton(product, quantityElement, priceElement) {
 
 // Close the product details view
 function closeDetails() {
+    handleAddonSelection();
     const pdContainer = document.querySelector(".pd");
     pdContainer.style.display = "none";
      // Reset all selected add-ons
