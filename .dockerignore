@@ -1,0 +1,11 @@
+# Ignore system files
+.git
+.gitignore
+/vendor
+
+
+# Ignore editor files
+*.log
+*.swp
+*~.swp
+.DS_Store
