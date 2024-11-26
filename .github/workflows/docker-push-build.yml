@@ -28,7 +28,7 @@ jobs:
       # Replace the image tag in docker-compose.yml
       - name: Replace image tag in docker-compose
         run: |
-          sed -i "s|image:.*|image: alexander003/php-app:${tag}|" ordering_system/docker-compose.yml  # Updated path
+          sed -i "s|image:.*|image: alexander003/php-app:${tag}|" docker-compose.yml  # Updated path
 
       # Log in to DockerHub
       - name: Log in to DockerHub
@@ -40,7 +40,7 @@ jobs:
       # Build and push Docker image
       - name: Build and Push Docker Image
         run: |
-          docker compose -f ordering_system/docker-compose.yml build  # Specify path to docker-compose.yml
-          docker compose -f ordering_system/docker-compose.yml push   # Specify path to docker-compose.yml
+          docker compose build
+      	  docker compose push
         env:
           tag: ${{ env.tag }}

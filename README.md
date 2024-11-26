@@ -5,11 +5,11 @@ composer run db-setup
 composer test
 
 ## For Pull Request
-git branch -M test \
+git branch -M docker \
 git remote add origin https://github.com/Greed003/softeng_codename.git \
-git pull origin test
+git pull origin docker
 
 ## For Push Request
 git add . \
 git commit -m "first commit" \
-git push -u origin test
+git push -u origin docker

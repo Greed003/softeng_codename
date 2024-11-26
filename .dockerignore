@@ -4,8 +4,3 @@
 /vendor
 
 
-# Ignore editor files
-*.log
-*.swp
-*~.swp
-.DS_Store

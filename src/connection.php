@@ -15,9 +15,10 @@ $dbPassword = $_ENV['DB_PASSWORD'];
 
 // Create a PDO connection
 try {
-    $dsn = "pgsql:host=$dbHost;dbname=$dbName";
+    $dsn = "pgsql:host=host.docker.internal;dbname=$dbName";
     $pdo = new PDO($dsn, $dbUser, $dbPassword);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     echo "Connection failed: " . $e->getMessage();
 }
+

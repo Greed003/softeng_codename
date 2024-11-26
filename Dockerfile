@@ -1,25 +1,43 @@
-# Use the official PHP image with Apache
-FROM php:8.0-apache
+# Use PHP with Apache as the base image
+FROM php:8.2-apache as web
 
-# Install necessary PostgreSQL extensions for PHP
-RUN docker-php-ext-install pgsql pdo_pgsql
+# Install System Dependencies for Composer, PHPUnit, and PostgreSQL
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    curl \
+    git \
+    unzip \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install Composer (PHP dependency manager)
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-# Enable Apache mod_rewrite (if needed for your app)
+# Enable Apache mod_rewrite for URL rewriting
 RUN a2enmod rewrite
 
-# Copy application files to the Apache document root
-COPY . /var/www/html/
+# Install PHP extensions for PostgreSQL and Composer dependencies
+RUN docker-php-ext-install pdo pdo_pgsql
 
-# Set correct permissions for Apache to access the app files
-RUN chown -R www-data:www-data /var/www/html
-RUN chmod -R 755 /var/www/html
+# Configure Apache DocumentRoot to point to Laravel's public directory
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/src
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf && \
+    sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
-# Install Composer dependencies (if a composer.json exists)
+# Copy the application code to the container
+COPY . /var/www/html
+
+# Set the working directory
 WORKDIR /var/www/html
-RUN composer install --no-interaction --prefer-dist
 
-# Expose port 80 to access the application
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Install PHP dependencies using Composer
+RUN composer install --no-dev --optimize-autoloader
+
+# Set permissions for the application
+RUN chown -R www-data:www-data /var/www/html && \
+    chmod -R 755 /var/www/html
+
+# Expose the port Apache is listening on
 EXPOSE 80
+
+# Start Apache in the foreground
+CMD ["apache2-foreground"]
