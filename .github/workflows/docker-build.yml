@@ -25,10 +25,10 @@ jobs:
           tag=${GITHUB_REF#refs/tags/}  # Extract the tag name
           echo "tag=${tag}" >> $GITHUB_ENV
 
-      # Replace the image tag in docker-compose.yml
+      # Replace the image tag in docker-compose
       - name: Replace image tag in docker-compose
         run: |
-          sed -i "s|image:.*|image: alexander003/php-app:${tag}|" docker-compose.yml  # Updated path
+          sed -i "s|image:.*|image: alexander003/php-app:${tag}|" docker-compose.yml
 
       # Log in to DockerHub
       - name: Log in to DockerHub
@@ -37,10 +37,16 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
+      # Install Docker Compose (optional but recommended)
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
       # Build and push Docker image
       - name: Build and Push Docker Image
         run: |
-          docker compose build
-      	  docker compose push
+          docker-compose build
+          docker-compose push
         env:
           tag: ${{ env.tag }}
