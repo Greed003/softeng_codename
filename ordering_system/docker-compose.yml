@@ -1,0 +1,29 @@
+services:
+  web:
+    image: alexander003/php-app:latest
+    build:
+      target: web
+      context: .
+    env_file:
+      - .env # This will load your .env file variables into the web service
+    ports:
+      - "8000:80"
+    depends_on:
+      - db
+
+  db:
+    platform: "linux/amd64"
+    image: postgres:14 # PostgreSQL image
+    env_file:
+      - .env # This will load environment variables into the db service
+    environment:
+      POSTGRES_USER: ${DB_USER} # Reads the DB_USER from .env
+      POSTGRES_PASSWORD: ${DB_PASSWORD} # Reads the DB_PASSWORD from .env
+      POSTGRES_DB: ${DB_NAME} # Reads the DB_NAME from .env
+    ports:
+      - "5432:5432" # Default PostgreSQL port
+    volumes:
+      - dbdata:/var/lib/postgresql/data # Volume for persisting data
+
+volumes:
+  dbdata:

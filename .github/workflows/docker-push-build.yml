@@ -3,7 +3,7 @@ name: Build and Push Docker Image
 on:
   push:
     tags:
-      - 'v*'  # Corrected indentation here
+      - "v*"
 
 jobs:
   build-and-push:
@@ -22,13 +22,13 @@ jobs:
       - name: Extract Git tag
         id: get_tag
         run: |
-          tag=${GITHUB_REF#refs/tags/}  # Corrected to extract the tag name
+          tag=${GITHUB_REF#refs/tags/}  # Extract the tag name
           echo "tag=${tag}" >> $GITHUB_ENV
 
       # Replace the image tag in docker-compose.yml
       - name: Replace image tag in docker-compose
         run: |
-          sed -i "s|image:.*|image: alexander003/php-app:${tag}|" docker-compose.yml
+          sed -i "s|image:.*|image: alexander003/php-app:${tag}|" ordering_system/docker-compose.yml  # Updated path
 
       # Log in to DockerHub
       - name: Log in to DockerHub
@@ -40,7 +40,7 @@ jobs:
       # Build and push Docker image
       - name: Build and Push Docker Image
         run: |
-          docker compose build
-          docker compose push
+          docker compose -f ordering_system/docker-compose.yml build  # Specify path to docker-compose.yml
+          docker compose -f ordering_system/docker-compose.yml push   # Specify path to docker-compose.yml
         env:
           tag: ${{ env.tag }}
