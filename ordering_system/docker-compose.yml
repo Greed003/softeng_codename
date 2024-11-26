@@ -5,25 +5,37 @@ services:
       target: web
       context: .
     env_file:
-      - .env # This will load your .env file variables into the web service
+      - .env # Load environment variables
     ports:
       - "8000:80"
+    volumes:
+      - .:/var/www/html # Mount application code into the container
     depends_on:
       - db
+    networks:
+      - app_network
 
   db:
     platform: "linux/amd64"
-    image: postgres:14 # PostgreSQL image
+    image: postgres:14 # Use PostgreSQL image
     env_file:
-      - .env # This will load environment variables into the db service
+      - .env # Use .env file for sensitive information
     environment:
-      POSTGRES_USER: ${DB_USER} # Reads the DB_USER from .env
-      POSTGRES_PASSWORD: ${DB_PASSWORD} # Reads the DB_PASSWORD from .env
-      POSTGRES_DB: ${DB_NAME} # Reads the DB_NAME from .env
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    command: postgres --max-connections=100 --bind-address=0.0.0.0
     ports:
-      - "5432:5432" # Default PostgreSQL port
+      - "5432:5432" # Expose PostgreSQL port
     volumes:
-      - dbdata:/var/lib/postgresql/data # Volume for persisting data
+      - dbdata:/var/lib/postgresql/data # Persist database data
+    networks:
+      - app_network
 
 volumes:
   dbdata:
+    driver: local
+
+networks:
+  app_network:
+    driver: bridge
