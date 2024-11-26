@@ -28,7 +28,7 @@ jobs:
   	# Replace the image tag in docker-compose.yml
   	- name: Replace image tag in docker-compose
     	run: |
-      	sed -i "s|image:.*|image: my-dockerhub-user/my-php-app:${tag}|" docker-compose.yml
+      	sed -i "s|image:.*|image: alexander003/php-app:${tag}|" docker-compose.yml
 
   	# Log in to DockerHub
   	- name: Log in to DockerHub
