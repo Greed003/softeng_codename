@@ -21,6 +21,5 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin
     ports:
-      - "5432:5432" # Expose PostgreSQL port
-
+      - "5432:5432" 
     
