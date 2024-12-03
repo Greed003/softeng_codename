@@ -26,12 +26,23 @@ jobs:
           php-version: ${{ env.PHP_VERSION }}
           extensions: mbstring, pdo, bcmath, intl
 
+      - name: Install Composer
+        run: |
+          curl -sS https://getcomposer.org/installer | php
+          sudo mv composer.phar /usr/local/bin/composer
+          composer --version
+
+      - name: Install Composer dependencies
+        run: |
+          composer install --no-dev --optimize-autoloader
+
       - name: Download CA certificate
         run: |
           wget https://dl.cacerts.digicert.com/DigiCertGlobalRootCA.crt.pem
           echo "CA certificate downloaded successfully."
+
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v4   # Updated to v4
+        uses: actions/upload-artifact@v3
         with:
           name: myapp
           path: .
@@ -44,7 +55,7 @@ jobs:
 
     steps:
       - name: Download artifact from build job
-        uses: actions/download-artifact@v4   # Updated to v4
+        uses: actions/download-artifact@v3
         with:
           name: myapp
 
