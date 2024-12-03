@@ -1,4 +1,4 @@
-name: Build and deploy PHP app to Azure Web App
+name: Build and deploy Laravel app to Azure Web App
 
 on:
   push:
@@ -6,9 +6,9 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_WEBAPP_NAME: kaskada-cafe        # Set this to your application's name
-  AZURE_WEBAPP_PACKAGE_PATH: '.'         # Path to your PHP project
-  PHP_VERSION: '8.2'                     # PHP version to use
+  AZURE_WEBAPP_NAME: kaskada-cafe         # Set this to your application's name
+  AZURE_WEBAPP_PACKAGE_PATH: '.'          # Path to your Laravel project
+  PHP_VERSION: '8.2'                      # PHP version to use
 
 permissions:
   contents: read
@@ -30,10 +30,6 @@ jobs:
         run: |
           wget https://dl.cacerts.digicert.com/DigiCertGlobalRootCA.crt.pem
           echo "CA certificate downloaded successfully."
-
-      - name: Install Composer dependencies
-        run: |
-          composer install --no-dev --optimize-autoloader
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
@@ -57,5 +53,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE1 }}
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
           package: .
