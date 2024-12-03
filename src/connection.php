@@ -17,7 +17,7 @@ $sslCertPath = 'DigiCertGlobalRootCA.crt.pem'; // Adjust the path to your SSL ce
 // Create a PDO connection with SSL for PostgreSQL
 try {
     // PostgreSQL connection string with SSL
-    $dsn = "pgsql:host=$dbHost;dbname=$dbName;sslmode=require";  // SSL mode set to 'require' for secure connection
+    $dsn = "pgsql:host=kaskada-cafe-server.postgres.database.azure.com;dbname=$dbName;sslmode=require";  // SSL mode set to 'require' for secure connection
     $pdo = new PDO($dsn, $dbUser, $dbPassword, [
         // Specify the path to the SSL certificate file
         PDO::PGSQL_ATTR_SSL_CERT => $sslCertPath
