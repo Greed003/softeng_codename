@@ -36,17 +36,11 @@ jobs:
         run: |
           composer install --no-dev --optimize-autoloader
 
-      - name: Prepare deployment files
-        run: |
-          mkdir -p ./deploy
-          rsync -av --exclude='./deploy' ./ ./deploy
-          echo "Deployment files prepared successfully."
-
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: myapp
-          path: ./deploy
+          path: .  # Use current directory
 
   deploy:
     permissions:
@@ -65,9 +59,9 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
-          package: ./deploy
+          package: .  # Deploy current directory
 
       - name: Run database setup script
         run: |
           echo "Running database setup script..."
-          php ./deploy/db_setup.php
+          php ./db_setup.php
