@@ -1,4 +1,4 @@
-name: Build and deploy Laravel app to Azure Web App
+name: Build, deploy, and set up PHP app on Azure Web App
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 env:
   AZURE_WEBAPP_NAME: kaskada-cafe     # Set this to your application's name
-  AZURE_WEBAPP_PACKAGE_PATH: '.'      # Path to your Laravel project
+  AZURE_WEBAPP_PACKAGE_PATH: '.'      # Path to your PHP project
   PHP_VERSION: '8.2'                  # PHP version to use
 
 permissions:
@@ -24,7 +24,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ env.PHP_VERSION }}
-          extensions: mbstring, pdo, bcmath, intl
+          extensions: mbstring, pdo, bcmath, intl, pgsql
 
       - name: Install Composer
         run: |
@@ -36,16 +36,17 @@ jobs:
         run: |
           composer install --no-dev --optimize-autoloader
 
-      - name: Download CA certificate
+      - name: Prepare deployment files
         run: |
-          wget https://dl.cacerts.digicert.com/DigiCertGlobalRootCA.crt.pem
-          echo "CA certificate downloaded successfully."
+          mkdir -p ./deploy
+          cp -r ./ ./deploy
+          echo "Deployment files prepared successfully."
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: myapp
-          path: .
+          path: ./deploy
 
   deploy:
     permissions:
@@ -64,4 +65,9 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
-          package: .
+          package: ./deploy
+
+      - name: Run database setup script
+        run: |
+          echo "Running database setup script..."
+          php ./deploy/db_setup.php
