@@ -1,14 +1,12 @@
-name: Build, deploy, and set up PHP app on Azure Web App
+name: Build and deploy PHP app to Azure Web App
 
 on:
-  push:
-    branches: ["docker"]
   workflow_dispatch:
 
 env:
-  AZURE_WEBAPP_NAME: kaskada-cafe     # Set this to your application's name
-  AZURE_WEBAPP_PACKAGE_PATH: '.'      # Path to your PHP project
-  PHP_VERSION: '8.2'                  # PHP version to use
+  AZURE_WEBAPP_NAME: kaskada-cafe        # Set this to your application's name
+  AZURE_WEBAPP_PACKAGE_PATH: '.'         # Path to your PHP project
+  PHP_VERSION: '8.2'                     # PHP version to use
 
 permissions:
   contents: read
@@ -24,13 +22,12 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ env.PHP_VERSION }}
-          extensions: mbstring, pdo, bcmath, intl, pgsql
+          extensions: mbstring, pdo, bcmath, intl
 
-      - name: Install Composer
+      - name: Download CA certificate
         run: |
-          curl -sS https://getcomposer.org/installer | php
-          sudo mv composer.phar /usr/local/bin/composer
-          composer --version
+          wget https://dl.cacerts.digicert.com/DigiCertGlobalRootCA.crt.pem
+          echo "CA certificate downloaded successfully."
 
       - name: Install Composer dependencies
         run: |
@@ -40,7 +37,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: myapp
-          path: .  # Use current directory
+          path: .
 
   deploy:
     permissions:
@@ -58,10 +55,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
-          package: .  # Deploy current directory
-
-      - name: Run database setup script
-        run: |
-          echo "Running database setup script..."
-          php ./db_setup.php
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE1 }}
+          package: .
