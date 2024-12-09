@@ -1,0 +1,25 @@
+services:
+  web:
+    image: alexander003/php-app:latest
+    build:
+      context: .
+    env_file:
+      - .env # Load environment variables
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html # Mount application code into the container
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13 # Use PostgreSQL image
+    env_file:
+      - .env # Use .env file for sensitive information
+    environment:
+      POSTGRES_DB: kaskada_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+
+    ports:
+      - "5432:5432" # Expose PostgreSQL port
