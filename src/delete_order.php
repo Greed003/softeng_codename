@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1); // Enable error reporting
 
-require 'connection.php'; // Your database connection file
+require 'connection.php'; // Include your database connection
 
 // Retrieve the JSON data
 $data = json_decode(file_get_contents('php://input'), true);
@@ -14,7 +14,6 @@ if ($data === null) {
 }
 
 $order_id = $data['order_id'];
-$status = $data['status'];
 
 try {
     // Ensure order_id is an integer
@@ -24,12 +23,15 @@ try {
     }
 
     // Prepare the SQL statement with placeholders
-    $sql = "UPDATE orders SET status = :status WHERE order_id = :order_id";
+    $sql = "DELETE FROM orders WHERE order_id = :order_id";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute(['status' => $status, 'order_id' => $order_id]);
+    $stmt->execute(['order_id' => $order_id]);
 
-    echo json_encode(['success' => true]);
-
+    if ($stmt->rowCount() > 0) {
+        echo json_encode(['success' => true, 'message' => 'Order deleted successfully']);
+    } else {
+        echo json_encode(['success' => false, 'error' => 'Order not found or already deleted']);
+    }
 } catch (Exception $e) {
     echo json_encode(['success' => false, 'error' => $e->getMessage()]);
 }

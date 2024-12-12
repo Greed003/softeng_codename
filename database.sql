@@ -9,6 +9,7 @@ DROP TABLE IF EXISTS product_type CASCADE;
 DROP TABLE IF EXISTS admin CASCADE;
 DROP TABLE IF EXISTS addons CASCADE;
 DROP TABLE IF EXISTS item_addons CASCADE;
+
 -- Create Admin Table
 CREATE TABLE admin (
     admin_id SERIAL PRIMARY KEY,
@@ -28,14 +29,14 @@ CREATE TABLE products (
     product_id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     description VARCHAR(255),
-    type_id INT REFERENCES product_type(type_id),
+    type_id INT REFERENCES product_type(type_id) ON DELETE CASCADE,
     img VARCHAR(255)
 );
 
 -- Create Product Size Table
 CREATE TABLE product_size (
     ps_id SERIAL PRIMARY KEY,
-    product_id INT REFERENCES products(product_id),
+    product_id INT REFERENCES products(product_id) ON DELETE CASCADE,
     size VARCHAR(50),
     price DECIMAL(10, 2) NOT NULL
 );
@@ -45,7 +46,7 @@ CREATE TABLE addons (
     addon_id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
-    type_id INT REFERENCES product_type(type_id)
+    type_id INT REFERENCES product_type(type_id) ON DELETE CASCADE
 );
 
 -- Create Orders Table
@@ -63,18 +64,19 @@ CREATE TABLE orders (
 -- Create Order Items Table
 CREATE TABLE order_items (
     order_item_id SERIAL PRIMARY KEY,
-    order_id INT NOT NULL REFERENCES orders(order_id),
-    product_id INT NOT NULL REFERENCES products(product_id),
+    order_id INT NOT NULL REFERENCES orders(order_id) ON DELETE CASCADE,
+    product_id INT NOT NULL REFERENCES products(product_id) ON DELETE CASCADE,
     size VARCHAR(50),
     add_ons VARCHAR(255), --will be removed
     quantity INT NOT NULL,
     price DECIMAL(10, 2) NOT NULL
 );
--- Create Order Items Table
+
+-- Create Item Addons Table
 CREATE TABLE item_addons (
     item_addon_id SERIAL PRIMARY KEY,
-    order_item_id INT NOT NULL REFERENCES order_items(order_item_id),
-    addon_id INT NOT NULL REFERENCES addons(addon_id),
+    order_item_id INT NOT NULL REFERENCES order_items(order_item_id) ON DELETE CASCADE,
+    addon_id INT NOT NULL REFERENCES addons(addon_id) ON DELETE CASCADE,
     quantity INT NOT NULL
 );
 
@@ -239,34 +241,4 @@ VALUES
 ('Ham 100g', 30.00, 4) 
 ON CONFLICT DO NOTHING;
 
--- Insert Sample Order 1
-INSERT INTO orders (name, service, total, status, cash, change) 
-VALUES 
-('John Doe', 'Take Out', 500.00,'Completed', 600.00, 100.00);
 
--- Insert Order Items for Sample Order 1
--- Assuming product_id 1 (Americano), size 'Hot 12oz', and quantity 2
-INSERT INTO order_items (order_id, product_id, size, quantity, price) 
-VALUES 
-(1, 1, 'Hot 12oz', 2, 65.00);
-
--- Assuming addon_id 1 (Shot Espresso), quantity 1
-INSERT INTO item_addons (order_item_id, addon_id, quantity) 
-VALUES 
-(1, 1, 1);
-
--- Insert Sample Order 2
-INSERT INTO orders (name, service, total, status, cash, change) 
-VALUES 
-('Jane Smith', 'Dine In', 800.00, 'Completed', 1000.00, 200.00);
-
--- Insert Order Items for Sample Order 2
--- Assuming product_id 22 (Ham & Cheese pizza), size '12"', and quantity 1
-INSERT INTO order_items (order_id, product_id, size, quantity, price) 
-VALUES 
-(2, 22, '12"', 1, 335.00);
-
--- Assuming addon_id 4 (Mozzarella 100g), quantity 2
-INSERT INTO item_addons (order_item_id, addon_id, quantity) 
-VALUES 
-(2, 4, 2);

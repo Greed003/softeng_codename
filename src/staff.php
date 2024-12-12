@@ -273,7 +273,7 @@
         const orders = document.querySelectorAll(".orders");
     
         orders.forEach((order) => {
-          const nameElement = order.querySelector(".w");
+          const nameElement = order.querySelector(".mar");
           const orderName = nameElement.textContent.toLowerCase();
     
           if (orderName.includes(searchValue)) {
@@ -352,28 +352,48 @@
         });
       });
 
-      document.querySelectorAll('.orders').forEach((order) => {
-  const deleteButton = order.querySelector('.delete');
-  const orderStatus = order.getAttribute('data-status');
+    document.querySelectorAll('.orders').forEach((order) => {
+      const deleteButton = order.querySelector('.delete');
+      const orderStatus = order.getAttribute('data-status');
 
-  // Check if deleteButton exists
-  if (deleteButton) {
-    // Show the Delete button only if the order status is "Pending"
-    if (orderStatus === 'Pending') {
-      deleteButton.style.display = 'inline-block'; // Show Delete button
-    } else {
-      deleteButton.style.display = 'none'; // Hide Delete button
-    }
+      // Check if deleteButton exists
+      if (deleteButton) {
+        // Show the Delete button only if the order status is "Pending"
+        if (orderStatus === 'Pending') {
+          deleteButton.style.display = 'inline-block'; // Show Delete button
+        } else {
+          deleteButton.style.display = 'none'; // Hide Delete button
+        }
 
-    // Add event listener for the Delete button
-    deleteButton.addEventListener('click', function () {
-      if (confirm('Are you sure you want to delete this order?')) {
-        order.remove(); // Remove the order from the DOM
+        // Add event listener for the Delete button
+        deleteButton.addEventListener('click', function () {
+          if (confirm('Are you sure you want to delete this order?')) {
+            const orderId = order.getAttribute('data-order-id');
+
+            fetch('delete_order.php', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ order_id: orderId }),
+            })
+              .then(response => response.json())
+              .then(data => {
+                if (data.success) {
+                  alert('Order deleted successfully.');
+                  order.remove(); // Remove the order from the DOM
+                } else {
+                  alert(`Error: ${data.error}`);
+                }
+              })
+              .catch(error => {
+                console.error('Error deleting order:', error);
+              });
+          }
+        });
       }
     });
-  }
-});
-
+    
 document.querySelectorAll(".submit").forEach((button) => {
   button.addEventListener("click", function () {
     const orderContainer = this.closest(".drop");
@@ -420,20 +440,10 @@ document.querySelectorAll(".submit").forEach((button) => {
 
     // Store the data in localStorage
     localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
-    console.log(orderDetails);
 
     // Update the cash input to display value as text
     const cashCell = cashInput.closest("td");
     cashCell.innerHTML = `<h3 class="mar">₱${cashValue.toFixed(2)}</h3>`;
-
-    // Add a new row for change
-    const table = orderContainer.querySelector(".table");
-    const changeRow = document.createElement("tr");
-    changeRow.innerHTML = `
-      <td><h3 class="mar">Change:</h3></td>
-      <td><h3 class="mar" id="change">₱${changeValue.toFixed(2)}</h3></td>
-    `;
-    table.appendChild(changeRow);
 
     // Update the status to "Completed"
     const statusElement = order.querySelector("h2.mar:nth-child(4)");
@@ -447,28 +457,33 @@ document.querySelectorAll(".submit").forEach((button) => {
     if (deleteButton) deleteButton.style.display = "none"; // Hide the Delete button if it exists
     printButton.style.display = "inline-block";
 
+    // Get the order ID from the data-order-id attribute
+    const orderId = order.getAttribute("data-order-id");
     // Send the data to update_order.php using Fetch
-    const orderId = order.getAttribute('data-order-id'); // Assuming you have a data-order-id attribute in the order element
-    
-    fetch('update_order.php', {
-      method: 'POST',
+    fetch("update_order.php", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         order_id: orderId,
-        status: 'Completed',
+        status: "Completed",
         cash: cashValue,
-        change: changeValue
+        change: changeValue,
       }),
     })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Order updated successfully:', data);
-    })
-    .catch(error => {
-      console.error('Error updating order:', error);
-    });
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Order updated successfully:", data);
+      })
+      .catch((error) => {
+        console.error("Error updating order:", error);
+      });
   });
 });
 

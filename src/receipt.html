@@ -37,6 +37,9 @@
       .fo20{
         font-size: 20px;
       }
+      .name{
+        text-align: left;
+      }
     </style>
   </head>
 
@@ -87,7 +90,7 @@
             orderDetails.products.forEach(product => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${product.name}<br>${product.addons}</td>
+                    <td class="name">${product.name}<br>${product.addons}</td>
                     <td>${product.price}</td>
                 `;
                 orderTable.appendChild(row);

@@ -303,7 +303,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        width: 479px;
+        width: auto;
         height: auto;
         background-color: #F4F4F4; /* Semi-transparent black */
         z-index: 1;
@@ -313,7 +313,7 @@
       }
       .check_n{
         display: flex;
-        width: 459px;
+        width: 600px;
         border-bottom: 2px solid #dddbdb;
         padding-left: 20px;
         font-weight: 500;
@@ -337,13 +337,15 @@
       .check_n4{
         color: #776363;
         font-size: 16px;
+        width: auto;
+        margin-right:10px;
       }
       .check_n5{
         
         font-size: 16px;
       }
       .check_oc{
-        width: 380px;
+        width: auto;
         height: auto;
         border-radius: 30px;
         border: 1px solid;
@@ -433,6 +435,10 @@
         cursor: pointer;
         box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2),
           0 2px 2px 0 rgba(0, 0, 0, 0.19);
+      }
+      #add_ons{
+        text-align:left;
+        margin-left:0;
       }
       .pdp{
         width: 500px;
@@ -796,7 +802,12 @@
     const pdContainer = document.querySelector(".pd"); // The container for product details
     const ino = document.querySelector(".ino");
     const hco = document.querySelector(".hco");
-
+    if (product.type_id == 4) {
+        ino.style.display = "flex"; // Show the ino element
+        hco.style.display = "none";
+    } else {
+        ino.style.display = "none"; // Hide the ino element
+    }
     // Populate the details with the clicked product data
     document.getElementById("product-img").src = product.img;
     document.getElementById("product-name").textContent = product.name;
@@ -1450,7 +1461,6 @@ const modal = document.querySelector("#confirmation-modal");
     })
     .then(data => {
         if (data.success) {
-            alert("Order placed successfully!");
             window.location.href = 'index.php';
         } else {
             alert("Error placing order: " + data.error);
