@@ -89,7 +89,7 @@ function generateOrderHTML($order) {
         <h2 class="mar">Service: $service</h2>
         <h2 class="mar w">Total: ₱$total</h2>
         <h2 class="mar">Status: $status</h2>
-        <div class="del"><button class="done delete">Delete</button></div>
+        <div class="del"><button class="done delete">Cancel</button></div>
         <img src="img/arrow_down.png" class="mar toggle-arrow" width="30px" height="30px" />
     </div>
 

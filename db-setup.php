@@ -60,7 +60,61 @@ try {
     } else {
         echo "SQL file not found: $sqlFile\n";
     }
-    
+
+    // Create or replace the function 'clean_old_orders'
+    $cleanOldOrdersSQL = "
+    CREATE OR REPLACE FUNCTION clean_old_orders() 
+    RETURNS VOID AS $$
+    BEGIN
+        DELETE FROM orders WHERE order_date < CURRENT_DATE;
+    END;
+    $$ LANGUAGE plpgsql;
+    ";
+
+    // Execute the function creation SQL
+    try {
+        $conn->executeStatement($cleanOldOrdersSQL);
+        echo "Function `clean_old_orders` created successfully.\n";
+    } catch (\Exception $e) {
+        echo "Error creating function: " . $e->getMessage() . "\n";
+    }
+
+    // Create or replace the function `trigger_clean_old_orders`
+    $triggerFunctionSQL = "
+    CREATE OR REPLACE FUNCTION trigger_clean_old_orders()
+    RETURNS TRIGGER AS $$
+    BEGIN
+        -- Call the clean_old_orders function when a new order is inserted
+        PERFORM clean_old_orders();
+        RETURN NEW;
+    END;
+    $$ LANGUAGE plpgsql;
+    ";
+
+    // Execute the trigger function creation SQL
+    try {
+        $conn->executeStatement($triggerFunctionSQL);
+        echo "Trigger function `trigger_clean_old_orders` created successfully.\n";
+    } catch (\Exception $e) {
+        echo "Error creating trigger function: " . $e->getMessage() . "\n";
+    }
+
+    // Create the trigger to call the function after insert on `orders`
+    $triggerSQL = "
+    CREATE TRIGGER clean_old_orders_trigger
+    AFTER INSERT ON orders
+    FOR EACH ROW
+    EXECUTE FUNCTION trigger_clean_old_orders();
+    ";
+
+    // Execute the trigger creation SQL
+    try {
+        $conn->executeStatement($triggerSQL);
+        echo "Trigger `clean_old_orders_trigger` created successfully.\n";
+    } catch (\Exception $e) {
+        echo "Error creating trigger: " . $e->getMessage() . "\n";
+    }
+
 } catch (\Exception $e) {
     echo "Failed to set up database: " . $e->getMessage() . "\n";
 }

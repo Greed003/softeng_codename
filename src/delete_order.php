@@ -28,9 +28,9 @@ try {
     $stmt->execute(['order_id' => $order_id]);
 
     if ($stmt->rowCount() > 0) {
-        echo json_encode(['success' => true, 'message' => 'Order deleted successfully']);
+        echo json_encode(['success' => true, 'message' => 'Order Cancelled successfully']);
     } else {
-        echo json_encode(['success' => false, 'error' => 'Order not found or already deleted']);
+        echo json_encode(['success' => false, 'error' => 'Order not found or already cancelled']);
     }
 } catch (Exception $e) {
     echo json_encode(['success' => false, 'error' => $e->getMessage()]);
