@@ -45,6 +45,7 @@
         width: auto;
         height: 100vh;
         align-items: left;
+        justify-content: space-between;
       }
       .cat2 {
         font-size: 20px;
@@ -217,6 +218,9 @@
         width: 100px;
         height: 30px;
       }
+      .bot{
+        margin-bottom: 10px;
+      }
     </style>
   </head>
 
@@ -225,25 +229,31 @@
       <div class="tab">
         <img src="img/logo2.png" width="200px" height="100px" />
         <div class="cat">
-          <div class="cat2">
-            Orders
-            <img
-              src="img/arrow_down.png"
-              id="dropdown"
-              width="30px"
-              height="30px"
-              style="margin-left: 20px; cursor: pointer;"
-            />
+          <div>
+            <div class="cat2">
+              Orders
+              <img
+                src="img/arrow_down.png"
+                id="dropdown"
+                width="30px"
+                height="30px"
+                style="margin-left: 20px; cursor: pointer;"
+              />
+            </div>
+            <div class="cat3" data-filter="All">
+              All
+            </div>
+            <div class="cat3" data-filter="Pending">
+              Pending
+            </div>
+            <div class="cat3" data-filter="Completed">
+              Completed
+            </div>
           </div>
-          <div class="cat3" data-filter="All">
-            All
-          </div>
-          <div class="cat3" data-filter="Pending">
-            Pending
-          </div>
-          <div class="cat3" data-filter="Completed">
-            Completed
-          </div>
+
+          <div class="cat2 bot" onclick="window.location.href='login.php';">
+            Log Out
+          </div>  
         </div>
       </div>
       <div class="main">

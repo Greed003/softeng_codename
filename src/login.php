@@ -43,9 +43,10 @@
             <div class="overlay">
                 <div class="overlay-panel overlay-left">
                 </div>
-                <div class="overlay-panel overlay-right">
-                    <h3 style="color: white;">Hello, Friend!</h3>
-                    <p style="color: white;">Enter your personal details and start your journey with us</p>
+                <div class="overlay-panel overlay-right" style="background-color: #ac8f64;">
+                    <!-- <h3 style="color: white;">Hello, Friend!</h3>
+                    <p style="color: white;">Enter your personal details and start your journey with us</p> -->
+                    <div style="background-image: url('img/logo.png'); background-size: contain; background-repeat: no-repeat; background-position: center; height: 350px; width: 350px;"></div>
                 </div>
             </div>
         </div>
