@@ -10,7 +10,7 @@ try {
         'dbname' => 'postgres',  // Connect to the default postgres database initially
         'user' => 'postgres',
         'password' => 'admin',
-        'host' => $_ENV['DOCKER_HOST'],  // Use the Docker container name 'db'
+        'host' => 'localhost',  // Use the Docker container name 'db'
         'driver' => 'pdo_pgsql',
     ];
 
