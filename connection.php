@@ -1,10 +1,10 @@
 <?php
-require_once __DIR__ . '/../vendor/autoload.php'; // Adjust this path if needed
+require_once __DIR__ . '/vendor/autoload.php'; // Adjust this path if needed
 
 use Dotenv\Dotenv;
 
 // Load the .env file from the root directory of the project
-$dotenv = Dotenv::createImmutable(__DIR__ . '/../'); // Make sure this path correctly points to your root directory
+$dotenv = Dotenv::createImmutable(__DIR__ . '/'); // Make sure this path correctly points to your root directory
 $dotenv->load();
 
 // Access environment variables

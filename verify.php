@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (password_verify($password, $hashed_password)) {
                 // Redirect based on user type
                 if ($type === 'admin') {
-                    header("Location: /"); // Replace with your admin page
+                    header("Location: admin.php"); // Replace with your admin page
                 } else {
                     header("Location: staff.php"); // Replace with your staff page
                 }
