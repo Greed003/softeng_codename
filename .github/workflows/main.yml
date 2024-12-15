@@ -1,4 +1,4 @@
-name: Build and deploy Laravel app to Azure Web App
+name: Build and deploy PHP app to Azure Web App
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 env:
   AZURE_WEBAPP_NAME: kaskada-cafe     # Set this to your application's name
-  AZURE_WEBAPP_PACKAGE_PATH: '.'      # Path to your Laravel project
+  AZURE_WEBAPP_PACKAGE_PATH: '.'      # Path to your PHP project
   PHP_VERSION: '8.2'                  # PHP version to use
 
 permissions:
@@ -18,25 +18,37 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Check out the code from the repository
       - uses: actions/checkout@v4
 
+      # Step 2: Set up PHP and necessary extensions
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ env.PHP_VERSION }}
           extensions: mbstring, pdo, bcmath, intl
+          tools: composer  # Ensure Composer is available
 
-      - name: Download CA certificate
+      # Step 3: Install dependencies using Composer
+      - name: Install Composer dependencies
+        run: composer install --no-dev --optimize-autoloader
+
+      # Step 4: Optimize the application (if applicable)
+      - name: Optimize Application
         run: |
-          wget https://dl.cacerts.digicert.com/DigiCertGlobalRootCA.crt.pem
-          echo "CA certificate downloaded successfully."
+          if [ -f artisan ]; then
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+          fi
 
+      # Step 5: Upload the prepared application as an artifact
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v4   # Updated to v4
+        uses: actions/upload-artifact@v4
         with:
           name: myapp
           path: .
-
+      
   deploy:
     permissions:
       contents: none
@@ -44,11 +56,13 @@ jobs:
     needs: build
 
     steps:
+      # Step 1: Download the artifact from the build job
       - name: Download artifact from build job
-        uses: actions/download-artifact@v4   # Updated to v4
+        uses: actions/download-artifact@v4
         with:
           name: myapp
 
+      # Step 2: Deploy the application to Azure Web App
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
