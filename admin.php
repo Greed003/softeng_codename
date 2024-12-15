@@ -980,7 +980,7 @@ addProductFormFields.addEventListener("submit", (e) => {
                 <td><select id="productSize" name="size" class="psTable">${sizeColumn}</select></td>
                 <td class="price">₱${parseFloat(productPrice).toFixed(2)}</td>
                 <td>
-                    <img src="img/delete.png" class="action-icon delete-icon" />
+                    <img src="img/delete1.png" class="action-icon delete-icon" />
                     <img src="img/edit.png" class="action-icon edit-icon" />
                 </td>
             `;
