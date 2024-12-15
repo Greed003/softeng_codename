@@ -8,7 +8,7 @@ $dotenv = Dotenv::createImmutable(__DIR__ . '/'); // Make sure this path correct
 $dotenv->load();
 
 // Access environment variables
-$dbHost = $_ENV['DB_HOST'];
+$dbHost = $_ENV['DOCKER_HOST'];
 $dbName = $_ENV['DB_NAME'];
 $dbUser = $_ENV['DB_USER'];
 $dbPassword = $_ENV['DB_PASSWORD'];
