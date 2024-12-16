@@ -24,7 +24,7 @@
       }
       .search {
         height: auto;
-        width: 98%;
+        width: 99%;
         display: flex;
         padding-top: 10px;
         align-items: center;
