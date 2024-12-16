@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <?php include('auth_check.php'); ?>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- <link rel="stylesheet" href="style.css" /> -->
@@ -23,7 +24,7 @@
       }
       .search {
         height: auto;
-        width: 100%;
+        width: 98%;
         display: flex;
         padding-top: 10px;
         align-items: center;
@@ -139,6 +140,9 @@
       .w2 {
         width: 210px;
       }
+      .w3{
+        width: 250px;
+      }
       .col2 {
         display: flex;
         flex-direction: row;
@@ -165,7 +169,7 @@
         }
         .orders {
         flex-direction: column;
-        font-size: 16px;
+        font-size: 14px;
         display: flex;
         text-align: left;
         justify-content: space-between;
@@ -251,7 +255,7 @@
             </div>
           </div>
 
-          <div class="cat2 bot" onclick="window.location.href='login.php';">
+          <div class="cat2 bot" onclick="window.location.href='logout.php';">
             Log Out
           </div>  
         </div>
@@ -413,8 +417,12 @@ document.querySelectorAll(".submit").forEach((button) => {
     const submitButton = this;
     const printButton = orderContainer.querySelector(".print");
     const deleteButton = order.querySelector(".delete"); // Correctly reference the deleteButton
-
-    // Get cash input and total
+    const customerName = order.querySelector("#cName");
+    const customerService = order.querySelector("#cService");
+    let customerServiceText = customerService ? customerService.textContent.replace("Service: ", "").trim() : "N/A";
+    let customerNameText = customerName.textContent;
+    customerNameText = customerNameText.replace("Name: ", "");
+    localStorage.setItem("customerName", customerNameText);
     const cashValue = parseFloat(cashInput.value) || 0;
     const totalValue = parseFloat(totalElement.textContent.replace("₱", "")) || 0;
 
@@ -430,6 +438,7 @@ document.querySelectorAll(".submit").forEach((button) => {
     // Store the order details in localStorage for the receipt page
     const orderDetails = {
       products: [],
+      service: customerServiceText,
       total: totalValue,
       cash: cashValue,
       change: changeValue,
@@ -453,7 +462,7 @@ document.querySelectorAll(".submit").forEach((button) => {
 
     // Update the cash input to display value as text
     const cashCell = cashInput.closest("td");
-    cashCell.innerHTML = `<h3 class="mar">₱${cashValue.toFixed(2)}</h3>`;
+    cashCell.innerHTML = `<h3 class="mar" id="cashValue">₱${cashValue.toFixed(2)}</h3>`;
 
     // Update the status to "Completed"
     const statusElement = order.querySelector("h2.mar:nth-child(4)");
@@ -499,19 +508,86 @@ document.querySelectorAll(".submit").forEach((button) => {
 
     
 const printButtons = document.querySelectorAll(".print");
-  printButtons.forEach((button) => {
-    button.addEventListener("click", function () {
-      const printWindow = window.open(
-        "receipt.html",
-        "PrintWindow",
-        "width=600,height=800"
-      );
 
-      printWindow.addEventListener("load", function () {
-        printWindow.print();
+printButtons.forEach((button) => {
+  button.addEventListener("click", function () {
+    const orderContainer = this.closest(".drop");
+    const order = this.closest(".orders"); // Find the closest .orders element for proper context
+
+    // Get customer name and clean up the text
+    const customerName = order.querySelector("#cName");
+    let customerNameText = customerName ? customerName.textContent.replace("Name: ", "").trim() : "Unknown";
+    console.log(customerNameText);
+    localStorage.setItem("customerName", customerNameText);
+
+    // Get customer service type
+    const customerService = order.querySelector("#cService");
+    let customerServiceText = customerService ? customerService.textContent.replace("Service: ", "").trim() : "N/A";
+    console.log(customerServiceText);
+
+    // Get total and cash values
+    const totalElement = orderContainer.querySelector("#total");
+    const cashInput = orderContainer.querySelector("#cashValue");
+
+    const totalValue = totalElement ? parseFloat(totalElement.textContent.replace("₱", "").trim()) || 0 : 0;
+    const cashValue = cashInput ? parseFloat(cashInput.textContent.replace("₱", "").trim()) || 0 : 0;
+
+    // Validate cash input
+    if (cashValue < totalValue) {
+      alert("Insufficient cash!");
+      return;
+    }
+
+    // Calculate change
+    const changeValue = cashValue - totalValue;
+
+    // Store order details
+    const orderDetails = {
+      customerName: customerNameText,
+      service: customerServiceText,
+      products: [],
+      total: totalValue,
+      cash: cashValue,
+      change: changeValue,
+    };
+
+    // Get product details
+    const products = orderContainer.querySelectorAll("#product");
+    const prices = orderContainer.querySelectorAll("#price");
+    const addons = orderContainer.querySelectorAll("#addons");
+
+    // Loop through products and add details to orderDetails
+    products.forEach((product, index) => {
+      orderDetails.products.push({
+        name: product ? product.textContent.trim() : "Unnamed Product",
+        addons: addons[index] ? addons[index].textContent.trim() : "No Addons",
+        price: prices[index] ? prices[index].textContent.trim() : "0.00",
       });
     });
+
+    // Validate if there are products in the order
+    if (orderDetails.products.length === 0) {
+      alert("No products in the order!");
+      return;
+    }
+
+    // Store the order details in localStorage for the receipt page
+    localStorage.setItem("orderDetails", JSON.stringify(orderDetails));
+
+    // Open receipt page in a new window and print
+    const printWindow = window.open(
+      "receipt.html",
+      "PrintWindow",
+      "width=600,height=800"
+    );
+
+    // Wait for the receipt page to load before triggering print
+    printWindow.addEventListener("load", function () {
+      printWindow.print();
+    });
   });
+});
+
 
     </script>    
   </body>

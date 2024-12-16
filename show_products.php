@@ -1,6 +1,6 @@
 <?php
 require 'connection.php';
-
+require_once 'auth_check.php';
 // SQL Query to get the product data, including category name
 $sql = "SELECT 
             p.product_id, 

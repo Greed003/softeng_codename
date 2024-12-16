@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <?php include('auth_check.php'); ?>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
@@ -443,7 +444,7 @@ button#cancelDeleteBtn:hover {
                     <div class="cat3" data-filter="Pizza">Pizza</div>
                     <div class="cat3" data-filter="Bread">Bread</div>
                 </div>
-                <div class="cat2 bot" onclick="window.location.href='login.php';">
+                <div class="cat2 bot" onclick="window.location.href='logout.php';">
                     Log Out
                 </div>
             </div>
@@ -995,6 +996,7 @@ addProductFormFields.addEventListener("submit", (e) => {
             // Clear the form fields
             addProductFormFields.reset();
             imagePreview.style.display = "none"; // Hide the image preview
+            window.location.reload();
         } else {
             alert('Error: ' + data.message);
         }

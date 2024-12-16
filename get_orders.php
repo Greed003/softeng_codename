@@ -1,6 +1,6 @@
 <?php
 require 'connection.php';
-
+require_once 'auth_check.php';
 try {
     // Query to fetch orders
     $stmt = $pdo->query("
@@ -85,11 +85,11 @@ function generateOrderHTML($order) {
     $orderHtml = <<<HTML
 <div class="orders" data-status="$status" data-order-id="$order_id">
     <div class="row">
-        <h2 class="mar">Name: $customer_name</h2>
-        <h2 class="mar">Service: $service</h2>
+        <h2 class="mar w3" id="cName">Name: $customer_name</h2>
+        <h2 class="mar w" id="cService">Service: $service</h2>
         <h2 class="mar w">Total: ₱$total</h2>
-        <h2 class="mar">Status: $status</h2>
-        <div class="del"><button class="done delete">Cancel</button></div>
+        <h2 class="mar w2">Status: $status</h2>
+        <div class="del w"><button class="done delete">Cancel</button></div>
         <img src="img/arrow_down.png" class="mar toggle-arrow" width="30px" height="30px" />
     </div>
 
@@ -140,7 +140,7 @@ HTML;
             <div class="line"></div>
             <table class="table">
                 <tr><th><h2 class="mar">Total:</h2></th><th><h2 class="mar" id="total">₱$total</h2></th></tr>
-                <tr><td><h3 class="mar">Cash:</h3></td><td><h3 class="mar">₱{$order['cash']}</h3></td></tr>
+                <tr><td><h3 class="mar">Cash:</h3></td><td><h3 class="mar" id="cashValue">₱{$order['cash']}</h3></td></tr>
                 <tr><td><h3 class="mar">Change:</h3></td><td><h3 class="mar" id="change">₱{$order['change']}</h3></td></tr>
                 <tr><td></td><td><button class="done print show">Print</button></td></tr>
             </table>

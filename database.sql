@@ -244,11 +244,11 @@ ON CONFLICT DO NOTHING;
 -- Insert Sample Orders
 INSERT INTO orders (name, service, status, order_date, total, cash, change) 
 VALUES 
-('John Doe', 'Dine-in', 'Completed', '2024-12-01 10:15:00', 385.00, 500.00, 115.00),
-('Jane Smith', 'Takeout', 'Pending', '2024-12-02 15:30:00', 250.00, NULL, NULL),
-('Michael Brown', 'Delivery', 'Pending', '2024-12-03 12:45:00', 500.00, NULL, NULL),
-('Emily Davis', 'Dine-in', 'Completed', '2024-11-30 18:20:00', 150.00, 200.00, 50.00),
-('Robert Wilson', 'Takeout', 'Completed', '2024-11-29 09:00:00', 75.00, 100.00, 25.00);
+('John Doe', 'Dine In', 'Completed', '2024-12-01 10:15:00', 385.00, 500.00, 115.00),
+('Jane Smith', 'Take Out', 'Pending', '2024-12-02 15:30:00', 500.00, NULL, NULL),
+('Michael Brown', 'Take Out', 'Pending', '2024-12-03 12:45:00', 500.00, NULL, NULL),
+('Emily Davis', 'Dine In', 'Completed', '2024-11-30 18:20:00', 150.00, 200.00, 50.00),
+('Robert Wilson', 'Take Out', 'Completed', '2024-11-29 09:00:00', 75.00, 100.00, 25.00);
 
 -- Insert Sample Order Items
 INSERT INTO order_items (order_id, product_id, size, quantity, price) 

@@ -40,6 +40,10 @@
       .name{
         text-align: left;
       }
+      #name,#service{
+        text-align: left;
+        font-size: 16px;
+      }
     </style>
   </head>
 
@@ -49,6 +53,8 @@
         <h5>Address: Laoeng St, Poblacion, San Gabriel, 2513 La Union</h5>
         <h5>Phone: 0954 382 1589</h5>
         <h5 style="margin-bottom:20px;">Date: <span id="date"></span></h5>
+        <h5 id="name"></h5>
+        <h5 id="service"></h5>
         <h2>* * * * * * * * * * * * * * * * * * * * * * *</h2>
         <h2>CASH RECEIPT</h2>
         <h2>* * * * * * * * * * * * * * * * * * * * * * *</h2>
@@ -77,6 +83,8 @@
         <h3>THANK YOU!</h3>
     </div>
     <script>
+        const customerName = localStorage.getItem("customerName");
+        console.log(customerName);
         // Get the stored order details
         const orderDetails = JSON.parse(localStorage.getItem('orderDetails'));
 
@@ -97,6 +105,8 @@
             });
 
             // Set total, cash, and change
+            document.getElementById('name').textContent = `Name: ${orderDetails.customerName}`;
+            document.getElementById('service').textContent = `Service: ${orderDetails.service}`;
             document.getElementById('total').textContent = `₱${orderDetails.total.toFixed(2)}`;
             document.getElementById('cash').textContent = `₱${orderDetails.cash.toFixed(2)}`;
             document.getElementById('change').textContent = `₱${orderDetails.change.toFixed(2)}`;
