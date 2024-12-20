@@ -124,8 +124,8 @@
         border-radius: 12px;
         border: 1px solid black;
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
-        height: 684px;
-        width: 77vw;
+        height: 81%;
+        width: 95%;
         overflow-y: auto;
         scrollbar-width: none;
     }

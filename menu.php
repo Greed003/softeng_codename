@@ -1319,12 +1319,14 @@ function showCheckSection() {
         const size = item.querySelector("#size").innerText; // Get the size element
         const addonsElement = item.querySelector(".add_ons");
         const addons = addonsElement ? addonsElement.innerText : '';
-
+        
         // Split add-ons into an array and format them
         const addonsArray = addons.split(",").map(addon => addon.trim());
         const formattedAddons = addonsArray.map(addon => `<li class="ca1">${addon}</li>`).join("");
 
-        totalCheckAmount += price;
+        // Multiply price by quantity and add to totalCheckAmount
+        const itemTotal = price * quantity;
+        totalCheckAmount += itemTotal;
 
         const checkItem = document.createElement("div");
         checkItem.classList.add("check_d");
@@ -1333,7 +1335,7 @@ function showCheckSection() {
             <h1 class="check_n4 product-name" id="pn">${productName}</h1>
             <h1 class="check_n4 size" id="size">${size}</h1> 
             <ul class="check_n4 add_ons" id="add_ons">${formattedAddons}</ul> 
-            <h1 class="check_n4 p" id="p">₱${price.toFixed(2)}</h1>
+            <h1 class="check_n4 p" id="p">₱${itemTotal.toFixed(2)}</h1>
         `;
         checkContainer.appendChild(checkItem);
 

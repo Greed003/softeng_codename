@@ -517,13 +517,13 @@ printButtons.forEach((button) => {
     // Get customer name and clean up the text
     const customerName = order.querySelector("#cName");
     let customerNameText = customerName ? customerName.textContent.replace("Name: ", "").trim() : "Unknown";
-    console.log(customerNameText);
+    console.log("Customer Name:", customerNameText);
     localStorage.setItem("customerName", customerNameText);
 
     // Get customer service type
     const customerService = order.querySelector("#cService");
     let customerServiceText = customerService ? customerService.textContent.replace("Service: ", "").trim() : "N/A";
-    console.log(customerServiceText);
+    console.log("Customer Service:", customerServiceText);
 
     // Get total and cash values
     const totalElement = orderContainer.querySelector("#total");
@@ -555,14 +555,23 @@ printButtons.forEach((button) => {
     const products = orderContainer.querySelectorAll("#product");
     const prices = orderContainer.querySelectorAll("#price");
     const addons = orderContainer.querySelectorAll("#addons");
-
+   
+    
     // Loop through products and add details to orderDetails
     products.forEach((product, index) => {
-      orderDetails.products.push({
+      const addonElement = addons[index];
+      const addonText = addonElement ? addonElement.textContent.trim() : "";
+      const productDetails = {
+        index: index + 1, // Add an index (starting from 1)
         name: product ? product.textContent.trim() : "Unnamed Product",
-        addons: addons[index] ? addons[index].textContent.trim() : "No Addons",
+        addons: addonText.length > 0 ? addonText : "No Addons", 
         price: prices[index] ? prices[index].textContent.trim() : "0.00",
-      });
+      };
+
+      orderDetails.products.push(productDetails);
+
+      // Log each product with its index
+      console.log("Product Details:", productDetails);
     });
 
     // Validate if there are products in the order
@@ -576,7 +585,7 @@ printButtons.forEach((button) => {
 
     // Open receipt page in a new window and print
     const printWindow = window.open(
-      "receipt.html",
+      "receipt.php",
       "PrintWindow",
       "width=600,height=800"
     );
@@ -587,6 +596,8 @@ printButtons.forEach((button) => {
     });
   });
 });
+
+
 
 
     </script>    

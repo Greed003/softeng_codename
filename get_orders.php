@@ -121,6 +121,10 @@ HTML;
             $addon_html = <<<HTML
             <h4 class="mar" id="addons">Add ons: $addon_list</h4>
     HTML;
+        }else{
+            $addon_html = <<<HTML
+            <h4 class="mar" id="addons"></h4>
+    HTML;
         }
     
         $orderHtml .= <<<HTML
